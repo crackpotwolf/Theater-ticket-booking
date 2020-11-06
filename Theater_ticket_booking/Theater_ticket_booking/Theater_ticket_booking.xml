@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Theater_ticket_booking</name>
+    </assembly>
+    <members>
+        <member name="M:Theater_ticket_booking.Controllers.UserController.Authentication(System.String,System.String)">
+            <summary>
+            Аутентификация пользователя
+            </summary>
+            <returns></returns>
+            <response code="400">При выполнении произошла ошибка</response> 
+        </member>
+    </members>
+</doc>

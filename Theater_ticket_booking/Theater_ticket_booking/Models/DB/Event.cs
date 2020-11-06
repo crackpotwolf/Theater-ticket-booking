@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MS_Lab_2.Models.db
 {
-    public class Program
+    public class Event 
     {
         [Key]
         public int Id { get; set; }
@@ -16,6 +16,6 @@ namespace MS_Lab_2.Models.db
         [Display(Name = "PerformanceId")]
         public int PerformanceId { get; set; }
         public virtual Performance Performance { get; set; }
-        public DateTime DateTime { get; set; }
+        public int DateTime { get; set; }
     }
 }

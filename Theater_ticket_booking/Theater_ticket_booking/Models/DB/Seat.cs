@@ -15,7 +15,7 @@ namespace MS_Lab_2.Models.db
         [ForeignKey("Program")]
         [Display(Name = "ProgramId")]
         public int ProgramId { get; set; }
-        public virtual Program Program { get; set; }
+        public virtual Event Event { get; set; } 
         public string Row { get; set; }
         public string Place { get; set; }
         public bool Status { get; set; }

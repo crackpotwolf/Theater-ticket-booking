@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -18,9 +19,9 @@ namespace Theater_ticket_booking.Controllers.API
     [Route("api/User")]
     [ApiController]
     [Authorize]
-    public class UserApi : _BaseApi
+    public class UserApiController : _BaseApiController
     {
-        public UserApi(UsersRepository userRepository) : base(userRepository)
+        public UserApiController(UsersRepository userRepository) : base(userRepository)
         {
         }
 

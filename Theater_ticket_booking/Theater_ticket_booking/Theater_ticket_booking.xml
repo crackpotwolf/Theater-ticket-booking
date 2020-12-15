@@ -10,7 +10,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.Login(System.String,System.String)">
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApiController.Login(System.String,System.String)">
             <summary>
             Получение токена доступа (Авторизация)
             </summary>
@@ -18,21 +18,21 @@
             <param name="password">Пароль учетной записи</param>
             <returns>Токен доступа</returns>
         </member>
-        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.Registration(Theater_ticket_booking.ModelsView.UserModels.RegistrationModel)">
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApiController.Registration(Theater_ticket_booking.ModelsView.UserModels.RegistrationModel)">
             <summary>
             Регистрация новой учетной записи
             </summary>
             <param name="model">Учетный данные</param>
             <returns></returns>
         </member>
-        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.UpdateUser(Theater_ticket_booking.ModelsView.UserModels.UpdateUserView)">
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApiController.UpdateUser(Theater_ticket_booking.ModelsView.UserModels.UpdateUserView)">
             <summary>
             Обновление информации об учетной записи
             </summary>
             <param name="model">Обновленная информация о пользователе</param>
             <returns></returns>
         </member>
-        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.Authorize(System.String,System.String)">
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApiController.Authorize(System.String,System.String)">
             <summary>
             Выдача токена по Email и паролю
             </summary>
@@ -40,7 +40,7 @@
             <param name="password">Пароль</param>
             <returns>Токен</returns>
         </member>
-        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.GetIdentity(System.String,System.String)">
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApiController.GetIdentity(System.String,System.String)">
             <summary>
             Аутендификация пользователя
             </summary>
@@ -48,13 +48,13 @@
             <param name="password">Пароль</param>
             <returns></returns>
         </member>
-        <member name="M:Theater_ticket_booking.Controllers.API._BaseApi.CurrentEmail">
+        <member name="M:Theater_ticket_booking.Controllers.API._BaseApiController.CurrentEmail">
             <summary>
             Возвращает Email текущего пользователя
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Theater_ticket_booking.Controllers.API._BaseApi.CurrentUser">
+        <member name="M:Theater_ticket_booking.Controllers.API._BaseApiController.CurrentUser">
             <summary>
             Возвращает текущего пользователя
             </summary>

@@ -1,33 +1,49 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
 <head>
+    <title>@ViewData["Title"]Театр</title>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Интернет-сайт театра</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="~/node_modules/jquery/dist/jquery.js"></script>
+    <script src="~/node_modules/jquery.cookie/jquery.cookie.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js"></script>
 </head>
 
-<body>
-    <div class="vh-100 w-75 mx-auto py-3 d-flex">
-        <div class="d-flex flex-column align-items-center pt-5 mr-2" id="menu">
+<div class="sidebar-container">
+    <div class="sidebar-logo"> Театр </div>
 
-            <a href="/Users" class="my-2 menu-item">
-            </a>
-            <a href="/Account" class="my-2 menu-item">
-            </a>
+    <ul class="sidebar-navigation">
 
-        </div>
+        <li>
+            <a href="/Account">
+                <i class="fa fa-history" aria-hidden="true"></i> Настройки
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="my-2 menu-item" onclick="LogOut()">
+                <i class="fa fa-history" aria-hidden="true"></i> Выйти
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+<div class="content-container">
+
+    <div class="container-fluid">
+
+        <div id="res"></div>
         @RenderBody()
+
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; Интернет-сайт театра
-        </div>
-    </footer>
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-</body>
-</html>
+</div>

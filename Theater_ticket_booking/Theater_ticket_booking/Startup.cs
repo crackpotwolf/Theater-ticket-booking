@@ -141,6 +141,7 @@ namespace Theater_ticket_booking
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

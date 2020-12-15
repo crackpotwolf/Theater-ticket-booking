@@ -10,10 +10,10 @@ namespace Theater_ticket_booking.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class _BaseApi : ControllerBase
+    public class _BaseApiController : ControllerBase
     {
         protected readonly UsersRepository _userRepository;
-        public _BaseApi(UsersRepository userRepository) 
+        public _BaseApiController(UsersRepository userRepository) 
         {
             _userRepository = userRepository;
         }

@@ -1,71 +1,124 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿.calendars {
+    border: 2px solid whitesmoke;
+    border-radius: 20px;
+    padding: 12px 10px;
+    text-align: center;
+    width: 250px;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.dates {
+    font-size: 20px;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    color: #465457;
+    margin: 10px;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.sidebar-container {
+    position: fixed;
+    width: 220px;
+    height: 100%;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #1A1B28;
+    color: #f0f0f0;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.content-container {
+    padding-top: 20px;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.sidebar-logo {
+    padding: 10px 15px 10px 30px;
+    font-size: 20px;
+    color: #C8DA67;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.sidebar-navigation {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    position: relative;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    .sidebar-navigation li {
+        background-color: transparent;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        line-height: 20px;
+    }
+
+        .sidebar-navigation li a {
+            padding: 10px 15px 10px 30px;
+            display: block;
+            color: #fff;
+        }
+
+            .sidebar-navigation li a:hover {
+                color: #252631;
+            }
+
+        .sidebar-navigation li .fa {
+            margin-right: 10px;
+        }
+
+        .sidebar-navigation li a:active,
+        .sidebar-navigation li a:hover,
+        .sidebar-navigation li a:focus {
+            text-decoration: none;
+            outline: none;
+        }
+
+        .sidebar-navigation li::before {
+            background-color: #C8DA67;
+            color: #1A1B28;
+            position: absolute;
+            content: '';
+            height: 100%;
+            left: 0;
+            top: 0;
+            -webkit-transition: width 0.2s ease-in;
+            transition: width 0.2s ease-in;
+            width: 3px;
+            z-index: -1;
+        }
+
+        .sidebar-navigation li:hover::before {
+            width: 100%;
+        }
+
+    .sidebar-navigation .header {
+        font-size: 12px;
+        text-transform: uppercase;
+        background-color: #1A1B28;
+        padding: 10px 15px 10px 30px;
+    }
+
+        .sidebar-navigation .header::before {
+            background-color: transparent;
+        }
+
+.content-container {
+    padding-left: 220px;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+
+.center-child {
+    position: relative;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    .center-child > * {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+    }
+
+.w-90 {
+    width: 90%;
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MS_Lab_2.Models.db;
 using System;
 using System.Collections.Generic;
 using System.Linq;

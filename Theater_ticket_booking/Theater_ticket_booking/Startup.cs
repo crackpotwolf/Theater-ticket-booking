@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Theater_ticket_booking.Models;
+using Theater_ticket_booking.Repositories;
 
 namespace Theater_ticket_booking
 {
@@ -39,47 +40,83 @@ namespace Theater_ticket_booking
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddControllersWithViews();
-
-            // настройка и подключение swagger
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Theater API", Version = "v1" });
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
-                c.EnableAnnotations();
-            });
-
             services.AddSwaggerGenNewtonsoftSupport();
 
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+                .AddCookie(o =>
                 {
-                    options.RequireHttpsMetadata = false;
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    o.LoginPath = "/";
+                })
+                    .AddJwtBearer(options =>
                     {
-                        // укзывает, будет ли валидироваться издатель при валидации токена
-                        ValidateIssuer = true,
-                        // строка, представляющая издателя
-                        ValidIssuer = AuthOptions.ISSUER,
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            // укзывает, будет ли валидироваться издатель при валидации токена
+                            ValidateIssuer = true,
+                            // строка, представляющая издателя
+                            ValidIssuer = AuthOptions.ISSUER,
 
-                        // будет ли валидироваться потребитель токена
-                        ValidateAudience = true,
-                        // установка потребителя токена
-                        ValidAudience = AuthOptions.AUDIENCE,
-                        // будет ли валидироваться время существования
-                        ValidateLifetime = true,
+                            // будет ли валидироваться потребитель токена
+                            ValidateAudience = true,
+                            // установка потребителя токена
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            // будет ли валидироваться время существования
+                            ValidateLifetime = true,
 
-                        // установка ключа безопасности
-                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        // валидация ключа безопасности
-                        ValidateIssuerSigningKey = true,
-                    };
+                            // установка ключа безопасности
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            // валидация ключа безопасности
+                            ValidateIssuerSigningKey = true,
+
+                        };
+
+
+                        options.Events = new JwtBearerEvents()
+                        {
+                            OnMessageReceived = context =>
+                            {
+                                var token = context.Request.Headers["Authorization"].ToString();
+                                if (string.IsNullOrEmpty(token))
+                                    token = context.Request.Cookies["Authorization"];
+
+
+                                if (!string.IsNullOrEmpty(token))
+                                {
+                                    var split = token.Split(' ');
+                                    if (split.Length == 2)
+                                        token = split[1];
+                                }
+
+                                context.Token = token;
+
+                                return Task.CompletedTask;
+                            },
+                        };
+                    });
+
+            services.AddControllersWithViews().AddNewtonsoftJson();
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Theater API",
+                    Description = "API интернет-сайта театра",
                 });
+            });
+
+            AddRepositories(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -121,6 +158,12 @@ namespace Theater_ticket_booking
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
             app.UseHttpsRedirection();
+        }
+
+        private void AddRepositories(IServiceCollection services)
+        {
+            services
+                .AddTransient(typeof(UsersRepository));
         }
     }
 }

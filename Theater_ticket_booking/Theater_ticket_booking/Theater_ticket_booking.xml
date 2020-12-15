@@ -4,12 +4,347 @@
         <name>Theater_ticket_booking</name>
     </assembly>
     <members>
-        <member name="M:Theater_ticket_booking.Controllers.UserController.Authentication(System.String,System.String)">
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.Login(System.String,System.String)">
             <summary>
-            Аутентификация пользователя
+            Получение токена доступа (Авторизация)
+            </summary>
+            <param name="username">Имя учетной записи (Email/Login/Номер телефона)</param>
+            <param name="password">Пароль учетной записи</param>
+            <returns>Токен доступа</returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.Registration(Theater_ticket_booking.ModelsView.UserModels.RegistrationModel)">
+            <summary>
+            Регистрация новой учетной записи
+            </summary>
+            <param name="model">Учетный данные</param>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.UpdateUser(Theater_ticket_booking.ModelsView.UserModels.UpdateUserView)">
+            <summary>
+            Обновление информации об учетной записи
+            </summary>
+            <param name="model">Обновленная информация о пользователе</param>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.Authorize(System.String,System.String)">
+            <summary>
+            Выдача токена по Email и паролю
+            </summary>
+            <param name="username">Email/Login/номер телефона</param>
+            <param name="password">Пароль</param>
+            <returns>Токен</returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.UserApi.GetIdentity(System.String,System.String)">
+            <summary>
+            Аутендификация пользователя
+            </summary>
+            <param name="username">Логин/Email/Телефон</param>
+            <param name="password">Пароль</param>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API._BaseApi.CurrentEmail">
+            <summary>
+            Возвращает Email текущего пользователя
             </summary>
             <returns></returns>
-            <response code="400">При выполнении произошла ошибка</response> 
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API._BaseApi.CurrentUser">
+            <summary>
+            Возвращает текущего пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.BaseController.CurrentEmail">
+            <summary>
+            Возвращает Email текущего пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.BaseController.CurrentUser">
+            <summary>
+            Возвращает текущего пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.BaseController.CurrentUserId">
+            <summary>
+            Получение идентификатора пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Helpers.MD5Helper.GetMD5Hash(System.String)">
+            <summary>
+            ХЭШ строки
+            </summary>
+            <param name="value">Исходная строка</param>
+            <returns>ХЭШ</returns>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.Actor">
+            <summary>
+            Актер
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Actor.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Actor.Name">
+            <summary>
+            Имя актера
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.ActorPerformance">
+            <summary>
+            Актер для данного мероприятия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.ActorPerformance.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.ActorPerformance.PerformanceId">
+            <summary>
+            Номер спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.ActorPerformance.ActorId">
+            <summary>
+            Актер
+            </summary>     
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.Event">
+            <summary>
+            Мероприятие
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Event.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Event.PerformanceId">
+            <summary>
+            Номер спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Event.DateTime">
+            <summary>
+            Двта и время начала мероприятия
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.Order">
+            <summary>
+            Заказ
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Order.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Order.UserId">
+            <summary>
+            Номер клиента
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Order.PerformanceId">
+            <summary>
+            Номер мероприятия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Order.Price">
+            <summary>
+            Цена
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.Performance">
+            <summary>
+            Спектакль
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Performance.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Performance.Name">
+            <summary>
+            Наименования спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Performance.Description">
+            <summary>
+            Описание спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Performance.miniPhoto">
+            <summary>
+            Фото спектакля
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.Photo">
+            <summary>
+            Фото
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Photo.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Photo.Name">
+            <summary>
+            Путь к фото
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.PhotoPerformance">
+            <summary>
+            Фото для данного спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.PhotoPerformance.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.PhotoPerformance.PhotoId">
+            <summary>
+            Номер фото
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.Producer">
+            <summary>
+            Режиссер
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Producer.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Producer.Name">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.ProducerPerformance">
+            <summary>
+            Режиссер для мероприятия 
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.ProducerPerformance.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.ProducerPerformance.PerformanceId">
+            <summary>
+            Номер спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.ProducerPerformance.ProducerId">
+            <summary>
+            Режиссер
+            </summary>     
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.Seat">
+            <summary>
+            Место в зале на спектакле
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Seat.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Seat.EventId">
+            <summary>
+            Номер мероприятия
+            </summary>     
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Seat.Row">
+            <summary>
+            Номер ряда
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Seat.Place">
+            <summary>
+            Номер места
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Seat.Status">
+            <summary>
+            Статус места
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Seat.Price">
+            <summary>
+            Цена места
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Seat.OrderId">
+            <summary>
+            Наличие заказа
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.DB.User">
+            <summary>
+            Аккаунт
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.Login">
+            <summary>
+            Логин
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.Password">
+            <summary>
+            Пароль
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.PasswordHash">
+            <summary>
+            ХЭШ от пароля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.FirstName">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.LastName">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.FullName">
+            <summary>
+            Имя Фамилия пользователя
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.Phone">
+            <summary>
+            Номер телефона
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.User.Email">
+            <summary>
+            Адресс почты
+            </summary>
+        </member>
+        <member name="M:Theater_ticket_booking.Repositories.UsersRepository.IsExists(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Проверяет существование пользователей в БД по идентификаторам
+            </summary>
+            <param name="usersId">Идентификаторы пользователей</param>
+            <returns>Идентификаторы пользователей которых нет в БД</returns>
         </member>
     </members>
 </doc>

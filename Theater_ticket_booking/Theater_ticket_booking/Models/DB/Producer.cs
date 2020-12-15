@@ -1,23 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Theater_ticket_booking.Models.DB
 {
+    /// <summary>
+    /// Режиссер
+    /// </summary>
     public class Producer
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
         [Key]
         public int Id { get; set; }
+
+        /// <summary>
+        /// Имя
+        /// </summary>
         public string Name { get; set; }
     }
 
+    /// <summary>
+    /// Режиссер для мероприятия 
+    /// </summary>
     public class ProducerPerformance
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
         [Key]
         public int Id { get; set; }
+
+        /// <summary>
+        /// Номер спектакля
+        /// </summary>
         public int PerformanceId { get; set; }
-        public Producer Producer { get; set; }
+
+        /// <summary>
+        /// Режиссер
+        /// </summary>     
+        [ForeignKey("Producer")]
+        [Display(Name = "ProducerId")]
+        public int ProducerId { get; set; }
+        public virtual Producer Producer { get; set; }
     }
 }

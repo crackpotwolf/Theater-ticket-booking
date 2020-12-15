@@ -5,20 +5,53 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MS_Lab_2.Models.db
+namespace Theater_ticket_booking.Models.DB
 {
+    /// <summary>
+    /// Место в зале на спектакле
+    /// </summary>
     public class Seat
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Program")]
-        [Display(Name = "ProgramId")]
-        public int ProgramId { get; set; }
+        /// <summary>
+        /// Номер мероприятия
+        /// </summary>     
+        [ForeignKey("Event")]
+        [Display(Name = "EventId")]
+        public int EventId { get; set; }
         public virtual Event Event { get; set; } 
+        
+        /// <summary>
+        /// Номер ряда
+        /// </summary>
         public string Row { get; set; }
+        
+        /// <summary>
+        /// Номер места
+        /// </summary>
         public string Place { get; set; }
+        
+        /// <summary>
+        /// Статус места
+        /// </summary>
         public bool Status { get; set; }
-        public int Price { get; set; } 
+        
+        /// <summary>
+        /// Цена места
+        /// </summary>
+        public int Price { get; set; }
+
+        /// <summary>
+        /// Наличие заказа
+        /// </summary>
+        [ForeignKey("Order")]
+        [Display(Name = "OrderId")]
+        public int OrderId { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

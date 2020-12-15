@@ -4,6 +4,12 @@
         <name>Theater_ticket_booking</name>
     </assembly>
     <members>
+        <member name="M:Theater_ticket_booking.Controllers.AccountController.Account">
+            <summary>
+            Настройки аккаунта пользователя
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Theater_ticket_booking.Controllers.API.UserApi.Login(System.String,System.String)">
             <summary>
             Получение токена доступа (Авторизация)

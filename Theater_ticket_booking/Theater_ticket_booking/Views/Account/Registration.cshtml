@@ -1,0 +1,60 @@
+﻿@model Theater_ticket_booking.ModelsView.UserModels.RegistrationModel
+@using Theater_ticket_booking.Models
+@{ ViewData["Title"] = "Регистрация";
+                Layout = "_LayoutEmpty"; }
+
+<div class="center-child vh-100">
+    <form action="/api/User" method="POST" class="card p-5" style="width: 30rem;" onsubmit="sendForm(this, event, OnRegistration, { onStart: () => $('#error-text').hide(), data:  GetFormData()})">
+
+        <label class="mx-auto font-weight-bold">Регистрация</label>
+        <input name="FirstName" id="FirstName" placeholder="Имя" class="form-control w-90 mx-auto mt-2" required />
+        <input name="LastName" id="LastName" placeholder="Фамилия" class="form-control w-90 mx-auto mt-2" required />
+        <input type="tel" name="Phone" id="Phone" placeholder="Номер телефона" class="form-control w-90 mx-auto mt-2" required />
+        <input name="Nickname" id="Login" placeholder="Логин" class="form-control w-90 mx-auto mt-2" required />
+        <input name="Email" id="Email" placeholder="Email" class="form-control w-90 mx-auto mt-2" required />
+        <input name="Password" id="Password" type="password" placeholder="Пароль" class="form-control w-90 mx-auto mt-2" required />
+
+        <span id="error-text" class="w-90 mx-auto mb-2" style="display: none;color: red;"></span>
+
+        <input type="submit" value="Зарегистрироваться" class="btn btn-primary w-90 mx-auto mt-2">
+        <a href="/Account/Login" class="card-link mx-auto" onclick="OpenLink(this, event)">Вход</a>
+
+    </form>
+</div>
+
+<script>
+    function GetFormData() {
+        return JSON.stringify({
+            'FirstName': $('#FirstName').val(),
+            'LastName': $('#LastName').val(),
+            'Phone': $('#Phone').val(),
+            'Login': $('#Login').val(),
+            'Email': $('#Email').val(),
+            'Password': $('#Password').val(),
+        });
+    }
+
+
+    function OnRegistration(response) {
+        if (response.status == 200) {
+            $.cookie("Authorization", `Bearer ${response.responseJSON.access_token}`, { path: '/' });
+            GetUserInfoFromServer();
+
+            var redirectUrl = new URL(window.location.href).searchParams.get("redirectUrl")
+
+            //Если есть куда, то перенаправить
+            if (redirectUrl != undefined && redirectUrl != "") {
+                window.location.replace(redirectUrl);
+            } else {
+                window.location = '/Dialogs';
+            }
+        }
+        else {
+            if (response.status == 400) {
+                $('#error-text').text(response.responseText);
+                $('#error-text').show();
+            }
+        }
+    }
+
+</script>

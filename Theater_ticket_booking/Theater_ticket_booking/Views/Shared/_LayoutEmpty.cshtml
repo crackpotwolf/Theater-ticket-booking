@@ -1,32 +1,27 @@
-﻿<!DOCTYPE html>
+﻿@{ var title = (string)ViewData["Title"];
+
+
+                if (!string.IsNullOrEmpty(title))
+                    title += " - "; }
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Интернет-сайт театра</title>
+    <title>@title Знакомства</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/node_modules/jquery.cookie/jquery.cookie.js"></script>
 </head>
-
 <body>
-    <div class="vh-100 w-75 mx-auto py-3 d-flex">
-        <div class="d-flex flex-column align-items-center pt-5 mr-2" id="menu">
-
-            <a href="/Users" class="my-2 menu-item">
-            </a>
-            <a href="/Account" class="my-2 menu-item">
-            </a>
-
-        </div>
-        @RenderBody()
-    </div>
-
+    @RenderBody()
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; Интернет-сайт театра
+            &copy; 2020 - Интернет-сайт театра
         </div>
     </footer>
-
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

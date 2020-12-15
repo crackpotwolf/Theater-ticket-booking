@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Авторизация";
+    Layout = "_LayoutEmpty";
+}
+<div class="center-child vh-100">
+    <form action="/api/User" method="GET" class="card p-5" style="width: 30rem;" onsubmit="sendForm(this, event, onLogin, { onStart: () => $('#error-text').hide() })">
+
+        <label class="mx-auto font-weight-bold">Авторизация</label>
+        <input type="text" name="username" id="username" placeholder="Login" required class="form-control w-90 mx-auto mt-2">
+        <input type="password" name="password" id="password" placeholder="Пароль" required class="form-control w-90 mx-auto mt-2">
+
+        <span id="error-text" class="w-90 mx-auto mb-2" style="display: none;color: red;"></span>
+
+        <input type="submit" value="Войти" class="btn btn-primary w-90 mx-auto mt-2">
+        <a href="/Account/Registration" class="card-link mx-auto" onclick="OpenLink(this,event)">Регистрация</a>
+
+    </form>
+</div>
+
+
+<script>
+    //Авторизация
+    function onLogin(response) {
+        if (response.status == 200)
+        {
+            $.cookie("Authorization", `Bearer ${response.responseJSON.access_token}`, { path: '/' });
+            GetUserInfoFromServer();
+
+            var redirectUrl = new URL(window.location.href).searchParams.get("redirectUrl")
+
+            //Если есть куда, то перенаправить
+            if (redirectUrl != undefined && redirectUrl != "") {
+                window.location.replace(redirectUrl);
+            } else
+            {
+                window.location = '/Dialogs';
+            }
+            //Иначе отправить на какую-то страницу
+            //TODO: доделать
+        }
+        else
+        {
+            $('#error-text').text(response.responseJSON.errorText);
+            $('#error-text').show();
+        }
+    }
+</script>

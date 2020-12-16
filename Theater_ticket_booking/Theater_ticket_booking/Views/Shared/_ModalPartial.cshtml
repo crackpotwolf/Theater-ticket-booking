@@ -1,0 +1,84 @@
+﻿<div id="ModalPartial" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" id="ModalDialog">
+        <div id="ModalContent" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modal-body" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function MapModalBody(body, refresh) {
+        $("#ModalContent").html();
+        $("#ModalContent").html(body);
+        $('#ModalDialog').addClass('modal-lg');
+        $('#ModalPartial').addClass('bd-example-modal-lg');
+        if(refresh != undefined){
+            var $form = $("#ModalContent").find("form");
+            if ($form.length != 0) {
+
+                let isAjax = $form.attr('data-ajax');
+
+                if (isAjax && refresh.LoadAction != undefined) {
+                    $form.unbind();
+                    $form.data("validator", null);
+                    $.validator.unobtrusive.parse(document);
+                    $form.bind("submit", function(){
+                        setTimeout(function(){
+                            refresh.LoadAction(refresh.data);
+                        }, 800);
+
+                    });
+                }
+            }
+        }
+    }
+
+    function ModalBody(body, refresh) {
+        $("#ModalContent").html();
+        $("#ModalContent").html(body);
+        $('#ModalDialog').removeClass('modal-lg');
+        $('#ModalPartial').removeClass('bd-example-modal-lg');
+        var $form = $("#ModalContent").find("form");
+        if ($form.length != 0) {
+
+            let isAjax = $form.attr('data-ajax');
+
+            if (isAjax && refresh.LoadAction != undefined) {
+                $form.unbind();
+                $form.data("validator", null);
+                //$.validator.unobtrusive.parse(document);
+                $form.bind("submit", function(){
+                    setTimeout(function(){
+                        refresh.LoadAction(refresh.data);
+                    }, 800);
+
+                });
+            }
+        }
+    }
+
+    function CloseModal() {
+
+        if($('#ModalPartial').hasClass('show'))
+        {
+            $('#ModalPartial').toggleClass('modal fade in modal fade');
+            $('#ModalPartial').modal('toggle');
+            $('.modal-backdrop').remove();
+        }
+    }
+
+    function OpenModal() {
+        $('#ModalPartial').modal('show');
+    }
+
+</script>

@@ -117,8 +117,8 @@ namespace Theater_ticket_booking.Models
                     {
                         Id = 1,
                         PerformanceId = 1,
-                        Date = "16.12.2020",
-                        Time = "18:50",
+                        Date = "17.12.2020",
+                        Time = "18:00",
                     }
                 );
 
@@ -127,8 +127,124 @@ namespace Theater_ticket_booking.Models
                     {
                         Id = 2,
                         PerformanceId = 1,
-                        Date = "16.12.2020",
-                        Time = "18:50",
+                        Date = "17.12.2020",
+                        Time = "21:30",
+                    }
+                );
+
+                context.SaveChanges();
+            }
+
+            if (!context.Seats.Any())
+            {
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "1",
+                        Place = "1",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "1",
+                        Place = "2",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "1",
+                        Place = "3",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "1",
+                        Place = "4",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        Id = 6,
+                        EventId = 1,
+                        Row = "1",
+                        Place = "5",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "2",
+                        Place = "1",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "2",
+                        Place = "2",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "2",
+                        Place = "3",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "2",
+                        Place = "4",
+                        Status = true,
+                        Price = 100,
+                    }
+                );
+
+                context.Seats.AddRange(
+                    new Seat
+                    {
+                        EventId = 1,
+                        Row = "2",
+                        Place = "5",
+                        Status = true,
+                        Price = 100,
                     }
                 );
 

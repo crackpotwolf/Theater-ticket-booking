@@ -5,12 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Theater_ticket_booking.Models.DB
+namespace Theater_ticket_booking.ModelsView
 {
-    /// <summary>
-    /// Место в зале на спектакле
-    /// </summary>
-    public class Seat
+    public class OrderView
     {
         /// <summary>
         /// Идентификатор
@@ -19,35 +16,28 @@ namespace Theater_ticket_booking.Models.DB
         public int Id { get; set; }
 
         /// <summary>
-        /// Номер мероприятия
-        /// </summary>     
-        [ForeignKey("Event")]
-        public int EventId { get; set; }
-        
+        /// Наименования спектакля
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// Номер ряда
         /// </summary>
         public string Row { get; set; }
-        
+
         /// <summary>
         /// Номер места
         /// </summary>
         public string Place { get; set; }
-        
-        /// <summary>
-        /// Статус места
-        /// </summary>
-        public bool Status { get; set; }
-        
-        /// <summary>
-        /// Цена места
-        /// </summary>
-        public int Price { get; set; }
 
         /// <summary>
-        /// Наличие заказа
+        /// Двта начала мероприятия
         /// </summary>
-        [ForeignKey("Order")]
-        public int ?OrderId { get; set; }
+        public string DateTime { get; set; }
+
+        /// <summary>
+        /// Цена
+        /// </summary>
+        public int Price { get; set; }
     }
 }

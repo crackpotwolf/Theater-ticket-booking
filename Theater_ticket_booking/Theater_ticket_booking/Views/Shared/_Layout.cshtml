@@ -15,9 +15,11 @@
 
     <script src="~/node_modules/jquery/dist/jquery.js"></script>
     <script src="~/node_modules/jquery.cookie/jquery.cookie.js"></script>
-    <script src="~/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js"></script>
 
+    <link href="~/node_modules/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" />
+    <script src="~/node_modules/bootstrap-select/dist/js/bootstrap-select.js"></script>
 </head>
 
 <div class="sidebar-container">
@@ -26,15 +28,20 @@
     <ul class="sidebar-navigation">
 
         <li>
-            <a href="/Account">
-                <i class="fa fa-history" aria-hidden="true"></i> Настройки
+            <a href="/Event">
+                <i class="fa fa-history" aria-hidden="true"></i> Афиша
             </a>
         </li>
 
+        <li>
+            <a href="/Order">
+                <i class="fa fa-history" aria-hidden="true"></i> Мои заказы
+            </a>
+        </li>
 
         <li>
-            <a href="/Event">
-                <i class="fa fa-history" aria-hidden="true"></i> Афиша
+            <a href="/Account">
+                <i class="fa fa-history" aria-hidden="true"></i> Настройки
             </a>
         </li>
 
@@ -57,5 +64,24 @@
 
     </div>
 
+    <partial name="_ModalPartial" />
     @RenderSection("Scripts", required: false)
 </div>
+
+<script>
+    function ajaxDetail(action, controller, loadFunction, data, refresh) {
+        $.ajax({
+            url: "/" + controller + "/" + action,
+            type: "GET",
+            data: { data: data },
+            success: function (result) {
+                loadFunction(result, refresh);
+            },
+            error: function (error) {
+                console.log("ajax Create error", error);
+            },
+            complete: function () {
+            }
+        });
+    }
+</script>

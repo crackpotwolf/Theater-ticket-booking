@@ -31,21 +31,16 @@ namespace Theater_ticket_booking.ModelsView
 
         /// <summary>
         /// Фото спектакля
-        /// </summary>
+        /// </summary>zz
         public string Photo { get; set; }
 
         /// <summary>
-        /// Двта начала мероприятия
+        /// Мероприятия
         /// </summary>
-        public List<string> Date { get; set; }
+        public List<Event> Event { get; set; }
 
         /// <summary>
-        /// Время начала мероприятия
-        /// </summary>
-        public List<string> Time { get; set; }
-
-        /// <summary>
-        /// Номер спектакля
+        /// Номер мероприятия
         /// </summary>
         [ForeignKey("Performance")]
         public int PerformanceId { get; set; }

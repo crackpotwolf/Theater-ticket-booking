@@ -30,37 +30,22 @@ namespace Theater_ticket_booking.ModelsView
         public string Description { get; set; }
 
         /// <summary>
-        /// Описание спектакля
-        /// </summary>
-        public string MiniDescription { get; set; }
-
-        /// <summary>
         /// Актеры
         /// </summary>
-        public List<Actor> Actors { get; set; }
+        public string Actors { get; set; }
 
         /// <summary>
         /// Режиссеры
         /// </summary>
-        public List<Producer> Producers { get; set; }
+        public string Producers { get; set; }
 
         /// <summary>
-        /// Фото спектакля
+        /// Дата и время
         /// </summary>
-        public string Photo { get; set; }
+        public string DateTime { get; set; }
 
         /// <summary>
-        /// Двта начала мероприятия
-        /// </summary>
-        public List<string> Date { get; set; }
-
-        /// <summary>
-        /// Время начала мероприятия
-        /// </summary>
-        public List<string> Time { get; set; }
-
-        /// <summary>
-        /// Номер спектакля
+        /// Номер мероприятия
         /// </summary>
         [ForeignKey("Performance")]
         public int PerformanceId { get; set; }

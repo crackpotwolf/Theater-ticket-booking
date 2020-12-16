@@ -1,0 +1,148 @@
+﻿@model Theater_ticket_booking.ModelsView.EventView
+
+<div class="modal-header">
+    <h5 id="modal-label" class="modal-title">Бронирование</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div id="modal-body" class="modal-body">
+    <dl class="dl-horizontal">
+        <dt class="col-sm-10">
+            Название спектакля
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-10">
+            Описание спектакля
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-10">
+            Актеры
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Actors)
+        </dd>
+        <dt class="col-sm-10">
+            Режиссеры
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Producers)
+        </dd>
+        <dt class="col-sm-10">
+            Дата и время
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateTime)
+        </dd>
+
+        <div class="item form-group ">
+            <dt class="col-sm-10">
+                Ряд
+            </dt>
+            <div class="input-group col-12">
+                <select id="Row" onchange=LoadSeat() class="selectpicker form-control select_row">
+                    @foreach (var type in @ViewBag.Seats)
+                    {
+                        <option>@type</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="item form-group">
+            <dt class="col-sm-10">
+                Места
+            </dt>
+            <div class="input-group col-12">
+                <select id="Seats" multiple onchange=LoadSum() class="selectpicker multiple form-control select_row" required>
+                    @foreach (var type in @ViewBag.Seats)
+                    {
+                        <option>@type</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <dt class="col-sm-10" id="sum">
+            Общая сумма: 0
+        </dt>
+
+    </dl>
+</div>
+<form  data-ajax="true" data-ajax-mode="replace" data-ajax-update="#res"
+      data-ajax-method="POST" data-ajax-success="ActivateButton()">
+
+    <div class="modal-footer">
+        <button id="modal-apply-button" type="submit" onclick="BookSeats()" class="btn btn-primary">Забронировать</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+    </div>
+</form>
+
+<script>
+
+    $(document).ready(function () {
+        $("select_row").selectpicker();
+        LoadSeat();
+    });
+
+    function LoadSeat() {
+        var row = document.getElementById("Row").value;
+
+        $.ajax({
+            url: '@Url.Action("GetSeats", "Event")',
+            type: 'GET',
+            data: { row: row},
+            success: function (result) {
+                ChangeSeats(result);
+            },
+            complete: function () {
+            }
+        });
+    }
+
+    function ChangeSeats(row) {
+        $("#Seats").empty();
+
+        for (const [key, value] of Object.entries(row)) {
+            $('#Seats').append('<option value="' + key + '">' + value + '</option>');
+        }
+        $('.selectpicker').selectpicker('refresh')
+    }
+
+    function LoadSum() {
+        var sumSeats = $('#Seats').val();
+
+        $.ajax({
+            url: '@Url.Action("GetSum", "Event")',
+            type: 'GET',
+            traditional: true,
+            data: { sumSeats: sumSeats},
+            success: function (result) {
+                document.getElementById("sum").innerHTML = "Общая сумма: " + result;
+            },
+            complete: function () {
+            }
+        });
+    }
+
+    function BookSeats() {
+        var sumSeats = $('#Seats').val();
+        var performanceId = @Html.DisplayFor(model => model.PerformanceId);
+
+        $.ajax({
+            url: '@Url.Action("BookSeats", "Order")',
+            type: 'GET',
+            traditional: true,
+            data: { performanceId: performanceId, sumSeats: sumSeats},
+            success: function (result) {
+            },
+            complete: function () {
+            }
+        });
+    }
+
+</script>

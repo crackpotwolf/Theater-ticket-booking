@@ -105,11 +105,6 @@
             Описание спектакля
             </summary>
         </member>
-        <member name="P:Theater_ticket_booking.ModelsView.EventView.MiniDescription">
-            <summary>
-            Описание спектакля
-            </summary>
-        </member>
         <member name="P:Theater_ticket_booking.ModelsView.EventView.Actors">
             <summary>
             Актеры
@@ -120,24 +115,14 @@
             Режиссеры
             </summary>
         </member>
-        <member name="P:Theater_ticket_booking.ModelsView.EventView.Photo">
+        <member name="P:Theater_ticket_booking.ModelsView.EventView.DateTime">
             <summary>
-            Фото спектакля
-            </summary>
-        </member>
-        <member name="P:Theater_ticket_booking.ModelsView.EventView.Date">
-            <summary>
-            Двта начала мероприятия
-            </summary>
-        </member>
-        <member name="P:Theater_ticket_booking.ModelsView.EventView.Time">
-            <summary>
-            Время начала мероприятия
+            Дата и время
             </summary>
         </member>
         <member name="P:Theater_ticket_booking.ModelsView.EventView.PerformanceId">
             <summary>
-            Номер спектакля
+            Номер мероприятия
             </summary>
         </member>
         <member name="T:Theater_ticket_booking.ModelsView.ShotEventView">
@@ -163,21 +148,46 @@
         <member name="P:Theater_ticket_booking.ModelsView.ShotEventView.Photo">
             <summary>
             Фото спектакля
-            </summary>
+            </summary>zz
         </member>
-        <member name="P:Theater_ticket_booking.ModelsView.ShotEventView.Date">
+        <member name="P:Theater_ticket_booking.ModelsView.ShotEventView.Event">
             <summary>
-            Двта начала мероприятия
-            </summary>
-        </member>
-        <member name="P:Theater_ticket_booking.ModelsView.ShotEventView.Time">
-            <summary>
-            Время начала мероприятия
+            Мероприятия
             </summary>
         </member>
         <member name="P:Theater_ticket_booking.ModelsView.ShotEventView.PerformanceId">
             <summary>
-            Номер спектакля
+            Номер мероприятия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.OrderView.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.OrderView.Name">
+            <summary>
+            Наименования спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.OrderView.Row">
+            <summary>
+            Номер ряда
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.OrderView.Place">
+            <summary>
+            Номер места
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.OrderView.DateTime">
+            <summary>
+            Двта начала мероприятия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.OrderView.Price">
+            <summary>
+            Цена
             </summary>
         </member>
         <member name="T:Theater_ticket_booking.Models.DB.Actor">

@@ -1,0 +1,63 @@
+﻿<div id="orders">
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        InitOrder();
+    });
+
+    function InitOrder() {
+        $.ajax({
+            url: '@Url.Action("GetOrders", "Order")',
+            type: 'GET',
+            async: false,
+            data: { },
+            success: function (result) {
+                FillOrders(result);
+            },
+            complete: function () {
+            }
+        });
+    }
+
+    function FillOrders(orders) {
+        $("#orders").empty();
+
+        orders.forEach(function (item, i, arr) {
+
+            $('#orders').append('<div class="card" style="margin:5px">' +
+                '<h5 class="card-header">Заказ №' + item.id + '</h5>' +
+                '<div class="card-body">' +
+                '<h5 class="card-title">' + item.name + '</h5>' +
+                '<p class="card-text">Дата и время: ' + item.dateTime + '</p>' +
+                '<p class="card-text">Ряд: ' + item.row + '</p>' +
+                '<p class="card-text">Места: ' + item.place + '</p>' +
+                '<p class="card-text">Цена: ' + item.price + '</p>' +
+                '<a href="#" class="btn btn-primary" onclick="CancelOrder(this)" id="' + item.id + '" >Отменить заказ</a>' +
+                '</div>');
+
+        });
+    }
+
+    function CancelOrder(obj) {
+        var orderid = obj.id;
+        console.log(orderid);
+
+        $.ajax({
+            url: '@Url.Action("CancelOrder", "Order")',
+            type: 'GET',
+            async: false,
+            data: { orderid: orderid },
+            success: function (result) {
+                location.reload();
+            },
+            complete: function () {
+            }
+        });
+
+        
+    }
+
+</script>

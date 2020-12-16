@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Theater_ticket_booking.Models;
 using Theater_ticket_booking.Models.DB;
 using Theater_ticket_booking.ModelsView;
@@ -14,7 +15,7 @@ namespace Theater_ticket_booking.Controllers
     {
         TheaterContext _db;
 
-        public EventController(TheaterContext context)  
+        public EventController(TheaterContext context)
         {
             _db = context;
         }
@@ -24,67 +25,75 @@ namespace Theater_ticket_booking.Controllers
             return View();
         }
 
-        public virtual IActionResult EventView() 
+        public virtual IActionResult EventView()
         {
             return PartialView("_EventPartial");
         }
 
-        public List<EventView> GetEvent(string date)
+
+        public Dictionary<int, string> GetSeats(string row)
         {
-            var event_view = new List<EventView>(); 
+            var seats = _db.Seats.Where(p => p.Row == row && p.Status == true);
+
+            Dictionary<int, string> result = new Dictionary<int, string> ();
+            foreach (var item in seats)
+                result.Add(item.Id, item.Place + " (" + item.Price.ToString() + " р)");
+
+            return result;
+        }
+
+        public string GetSum(int[] sumSeats)
+        {
+            int result = 0;
+            foreach (var item in sumSeats)
+                result += _db.Seats.Where(p => p.Id == item).Select(p => p.Price).FirstOrDefault();
+
+            return result.ToString();
+        }
+
+        public virtual IActionResult GetEvent(int data)
+        {
+            var event_view = new EventView();
+            ViewBag.Seats = new List<string>();
+
+            ViewBag.Seats = _db.Seats.Select(m => m.Row).Distinct().ToList();
 
             try
             {
-                var events = _db.Events.Where(p => p.Date == date).ToList(); 
+                var events = _db.Events.Where(p => p.Id == data).FirstOrDefault();
+                Performance performance = _db.Performances.Where(p => p.Id == events.PerformanceId).FirstOrDefault();
+
+                List<ActorPerformance> actorPerformances = _db.ActorPerformances.Where(p => p.PerformanceId == performance.Id).ToList();
+                string actors = "";
+
+                foreach (var it in actorPerformances)
+                    actors += _db.Actors.Where(p => p.Id == it.ActorId).FirstOrDefault().Name + ", ";
+                actors = actors.Substring(0, actors.Length - 2);
+
+                List<ProducerPerformance> producerPerformance = _db.ProducerPerformances.Where(p => p.PerformanceId == performance.Id).ToList();
+                string producers = "";
+
+                foreach (var it in producerPerformance)
+                    producers += _db.Producers.Where(p => p.Id == it.PerformanceId).FirstOrDefault().Name + ", ";
+                producers = producers.Substring(0, producers.Length - 2);
 
 
-                foreach (var item in events)
+                event_view = new EventView
                 {
-
-                    if (event_view.Where(p => p.PerformanceId == item.PerformanceId).FirstOrDefault() == null)
-                    {
-                        Performance performance = _db.Performances.Where(p => p.Id == item.PerformanceId).FirstOrDefault();
-
-                        List<ActorPerformance> actorPerformances = _db.ActorPerformances.Where(p => p.PerformanceId == performance.Id).ToList();
-                        List<Actor> actors = new List<Actor>();
-
-                        foreach (var it in actorPerformances)
-                            actors.Add(_db.Actors.Where(p => p.Id == it.ActorId).FirstOrDefault());
-
-                        List<ProducerPerformance> producerPerformance = _db.ProducerPerformances.Where(p => p.PerformanceId == performance.Id).ToList();
-                        List<Producer> producers = new List<Producer>();
-
-                        foreach (var it in producerPerformance)
-                            producers.Add(_db.Producers.Where(p => p.Id == it.PerformanceId).FirstOrDefault());
-
-                        event_view.Add(new EventView()
-                        {
-                            Name = performance.Name,
-                            Description = performance.Description,
-                            MiniDescription = performance.MiniDescription,
-                            Actors = actors,
-                            Producers = producers,
-                            Photo = performance.Photo,
-                            Date = new List<string> { item.Date },
-                            Time = new List<string> { item.Time }
-
-                        });
-                    }
-                    else
-                    {
-                        var indexevent = event_view.FindIndex(p => p.PerformanceId == item.PerformanceId);
-
-                        event_view[indexevent].Date.Add(item.Date);
-                        event_view[indexevent].Date.Add(item.Time);
-                    }
-                }
+                    Name = performance.Name,
+                    Description = performance.Description,
+                    Actors = actors,
+                    Producers = producers,
+                    PerformanceId = performance.Id,
+                    DateTime = events.Date + ", " + events.Time
+                };
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
 
-            return event_view;
+            return PartialView("_OrderPartial", event_view);
         }
 
         public List<ShotEventView> GetShotEvent(string date)
@@ -108,17 +117,13 @@ namespace Theater_ticket_booking.Controllers
                             MiniDescription = performance.MiniDescription,
                             Photo = performance.Photo,
                             PerformanceId = performance.Id,
-                            Date = new List<string> { item.Date },
-                            Time = new List<string> { item.Time }
-
+                            Event = new List<Event> { item }
                         });
                     }
                     else
                     {
                         var indexevent = event_view.FindIndex(p => p.PerformanceId == item.PerformanceId);
-
-                        event_view[indexevent].Date.Add(item.Date);
-                        event_view[indexevent].Date.Add(item.Time);
+                        event_view[indexevent].Event.Add(item);
                     }
                 }
             }

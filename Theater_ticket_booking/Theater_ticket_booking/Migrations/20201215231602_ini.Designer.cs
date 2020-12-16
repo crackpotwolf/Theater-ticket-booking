@@ -8,8 +8,8 @@ using Theater_ticket_booking.Models;
 namespace Theater_ticket_booking.Migrations
 {
     [DbContext(typeof(TheaterContext))]
-    [Migration("20201215165249_init")]
-    partial class init
+    [Migration("20201215231602_ini")]
+    partial class ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,48 +102,18 @@ namespace Theater_ticket_booking.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("MiniDescription")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("miniPhoto")
+                    b.Property<string>("Photo")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Performances");
-                });
-
-            modelBuilder.Entity("Theater_ticket_booking.Models.DB.Photo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Photos");
-                });
-
-            modelBuilder.Entity("Theater_ticket_booking.Models.DB.PhotoPerformance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PerformanceId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PhotoId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PhotoId");
-
-                    b.ToTable("PhotoPerformances");
                 });
 
             modelBuilder.Entity("Theater_ticket_booking.Models.DB.Producer", b =>
@@ -279,15 +249,6 @@ namespace Theater_ticket_booking.Migrations
                     b.HasOne("Theater_ticket_booking.Models.DB.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Theater_ticket_booking.Models.DB.PhotoPerformance", b =>
-                {
-                    b.HasOne("Theater_ticket_booking.Models.DB.Photo", "Photo")
-                        .WithMany()
-                        .HasForeignKey("PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

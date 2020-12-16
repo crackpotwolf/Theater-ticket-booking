@@ -29,8 +29,13 @@ namespace Theater_ticket_booking.Models.DB
         public string Description { get; set; }
 
         /// <summary>
+        /// Описание спектакля
+        /// </summary>
+        public string MiniDescription { get; set; } 
+
+        /// <summary>
         /// Фото спектакля
         /// </summary>
-        public string miniPhoto { get; set; }
+        public string Photo { get; set; }
     }    
 }

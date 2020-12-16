@@ -185,39 +185,14 @@
             Описание спектакля
             </summary>
         </member>
-        <member name="P:Theater_ticket_booking.Models.DB.Performance.miniPhoto">
+        <member name="P:Theater_ticket_booking.Models.DB.Performance.MiniDescription">
+            <summary>
+            Описание спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.Models.DB.Performance.Photo">
             <summary>
             Фото спектакля
-            </summary>
-        </member>
-        <member name="T:Theater_ticket_booking.Models.DB.Photo">
-            <summary>
-            Фото
-            </summary>
-        </member>
-        <member name="P:Theater_ticket_booking.Models.DB.Photo.Id">
-            <summary>
-            Идентификатор
-            </summary>
-        </member>
-        <member name="P:Theater_ticket_booking.Models.DB.Photo.Name">
-            <summary>
-            Путь к фото
-            </summary>
-        </member>
-        <member name="T:Theater_ticket_booking.Models.DB.PhotoPerformance">
-            <summary>
-            Фото для данного спектакля
-            </summary>
-        </member>
-        <member name="P:Theater_ticket_booking.Models.DB.PhotoPerformance.Id">
-            <summary>
-            Идентификатор
-            </summary>
-        </member>
-        <member name="P:Theater_ticket_booking.Models.DB.PhotoPerformance.PhotoId">
-            <summary>
-            Номер фото
             </summary>
         </member>
         <member name="T:Theater_ticket_booking.Models.DB.Producer">

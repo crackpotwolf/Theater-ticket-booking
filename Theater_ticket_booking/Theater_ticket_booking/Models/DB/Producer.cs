@@ -44,8 +44,6 @@ namespace Theater_ticket_booking.Models.DB
         /// Режиссер
         /// </summary>     
         [ForeignKey("Producer")]
-        [Display(Name = "ProducerId")]
         public int ProducerId { get; set; }
-        public virtual Producer Producer { get; set; }
     }
 }

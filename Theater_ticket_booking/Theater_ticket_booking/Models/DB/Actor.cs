@@ -44,8 +44,6 @@ namespace Theater_ticket_booking.Models.DB
         /// Актер
         /// </summary>     
         [ForeignKey("Actor")]
-        [Display(Name = "ActorId")]
         public int ActorId { get; set; }
-        public virtual Actor Actor { get; set; }
     }
 }

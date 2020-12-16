@@ -22,9 +22,7 @@ namespace Theater_ticket_booking.Models.DB
         /// Номер мероприятия
         /// </summary>     
         [ForeignKey("Event")]
-        [Display(Name = "EventId")]
         public int EventId { get; set; }
-        public virtual Event Event { get; set; } 
         
         /// <summary>
         /// Номер ряда
@@ -50,8 +48,6 @@ namespace Theater_ticket_booking.Models.DB
         /// Наличие заказа
         /// </summary>
         [ForeignKey("Order")]
-        [Display(Name = "OrderId")]
         public int OrderId { get; set; }
-        public virtual Order Order { get; set; }
     }
 }

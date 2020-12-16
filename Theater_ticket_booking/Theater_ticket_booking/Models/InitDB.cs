@@ -35,7 +35,7 @@ namespace Theater_ticket_booking.Models
                         Name = "Мастер и Маргарита",
                         Description = "Спектаклю «Мастер и Маргарита» уже больше 10 лет. И он давно заслужил репутацию самого популярного спектакля в странах СНГ и зарубежья, побившего все известные рекорды зрительского спроса и кассовых сборов.",
                         MiniDescription = "«Мастер и Маргарита» — подлинный шедевр искусства театра двадцать первого века.",
-                        Photo = "https://sun9-57.userapi.com/impg/2MRazDiSXp6gGtRJ25hlnpVM_dNJe9bdQ1LJcQ/HsTvx61n3CA.jpg?size=1260x500&quality=96&proxy=1&sign=41a84560b6a17693cd52cafbcde2e117&type=album"
+                        Photo = "https://sun9-56.userapi.com/impg/cHPDwO7FDtki4BZ6_vAD1fFZgewxKd7BMjCoWw/O2QokcLexM0.jpg?size=833x500&quality=96&proxy=1&sign=37461966fa37122559137c286269c4cb&type=album"
                     }
                 );
                 context.SaveChanges();
@@ -117,7 +117,8 @@ namespace Theater_ticket_booking.Models
                     {
                         Id = 1,
                         PerformanceId = 1,
-                        DateTime = 1608238800
+                        Date = "16.12.2020",
+                        Time = "18:50",
                     }
                 );
 
@@ -126,7 +127,8 @@ namespace Theater_ticket_booking.Models
                     {
                         Id = 2,
                         PerformanceId = 1,
-                        DateTime = 1608228000
+                        Date = "16.12.2020",
+                        Time = "18:50",
                     }
                 );
 

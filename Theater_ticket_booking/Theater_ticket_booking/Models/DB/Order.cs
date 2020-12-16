@@ -22,17 +22,13 @@ namespace Theater_ticket_booking.Models.DB
         /// Номер клиента
         /// </summary>
         [ForeignKey("User")]
-        [Display(Name = "UserId")]
         public int UserId { get; set; }
-        public virtual User User { get; set; }
 
         /// <summary>
         /// Номер мероприятия
         /// </summary>
         [ForeignKey("Performance")]
-        [Display(Name = "PerformanceId")]
         public int PerformanceId { get; set; }
-        public virtual Performance Performance { get; set; }
         
         /// <summary>
         /// Цена

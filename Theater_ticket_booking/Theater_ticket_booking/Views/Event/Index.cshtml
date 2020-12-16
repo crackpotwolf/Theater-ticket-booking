@@ -20,7 +20,7 @@
     });
 </script>
 
-<div class="card shadow mb-4" style="border-radius: 30px;">
+<div class="card shadow mb-4">
     <div class="card-body">
         <div style="text-align:center">
 
@@ -29,7 +29,7 @@
             </span>
 
             <input class="calendars" type="text" id="date" placeholder="Пожалуйста, выберите дату"
-                   value="@(DateTime.UtcNow.AddDays(-30).AddHours(4).DateTimeToString("dd.MM.yyyy HH:mm:ss"))" onchange="WeatherUpdate()" data-input>
+                   value="@(DateTime.UtcNow.AddHours(4).DateTimeToString("dd.MM.yyyy HH:mm:ss"))" onchange="InitEvent()" data-input>
         </div>
     </div>
 </div>

@@ -107,6 +107,7 @@ namespace Theater_ticket_booking
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+                c.EnableAnnotations();
 
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {

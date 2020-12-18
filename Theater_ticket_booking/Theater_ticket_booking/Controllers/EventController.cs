@@ -38,7 +38,6 @@ namespace Theater_ticket_booking.Controllers
         /// <param name="row"></param> - номер ряда
         /// <param name="eventId"></param> - id события
         /// <returns></returns>
-        [HttpGet]
         public Dictionary<int, string> GetSeats(string row, int eventId)
         {
             var seats = _db.Seats.Where(p => p.Row == row && p.Status == true && p.EventId == eventId).ToList();
@@ -55,7 +54,6 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="sumSeats"></param> - id мест
         /// <returns></returns>
-        [HttpGet]
         public string GetSum(int[] sumSeats)
         {
             int result = 0;
@@ -70,13 +68,12 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="eventId"></param> - id мероприятия
         /// <returns></returns>
-        [HttpGet]
         public virtual IActionResult GetEvent(int eventId)
         {
             var event_view = new EventView();
             ViewBag.Seats = new List<string>();
 
-            ViewBag.Seats = _db.Seats.Select(m => m.Row).Distinct().ToList();
+            ViewBag.Seats = _db.Seats.Where(p => p.EventId == eventId).Select(m => m.Row).Distinct().ToList();
 
             try
             {
@@ -125,7 +122,6 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="date"></param> - дата
         /// <returns></returns>
-        [HttpGet]
         public List<ShotEventView> GetEvents(string date) 
         {
             var event_view = new List<ShotEventView>();

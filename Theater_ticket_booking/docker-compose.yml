@@ -1,0 +1,14 @@
+﻿version: "3.4"
+
+services:
+  ticketbooking:
+    container_name: ticketbooking
+    image: ticketbooking
+    environment:
+      - PORT=5000
+    ports:
+      - 5000:5000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm install

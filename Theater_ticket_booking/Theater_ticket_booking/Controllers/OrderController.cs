@@ -31,7 +31,6 @@ namespace Theater_ticket_booking.Controllers
         /// Отмена брони
         /// </summary>
         /// <param name="orderid"></param> - номер брони
-        [HttpGet]
         public void CancelOrder(int orderid)
         {
             // получение заказа
@@ -59,7 +58,6 @@ namespace Theater_ticket_booking.Controllers
         /// Получение списка броней для данного клиента
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
         public List<OrderView> GetOrders() 
         {
             List<OrderView> orderView = new List<OrderView>();
@@ -105,7 +103,6 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="eventId"></param> - id мероприятия
         /// <param name="sumSeats"></param> - id выбранных мест
-        [HttpGet]
         public void BookSeats(int eventId, int[] sumSeats) 
         {
             // расчет общей стоимости брони

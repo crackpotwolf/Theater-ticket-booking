@@ -22,6 +22,80 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.EventApiController.GetEvent(System.Int32)">
+            <summary>
+            Получение полной информации для определенного мероприятия
+            </summary>
+            <param name="eventId"></param> Id мероприятия
+            <returns></returns> Возвращает информацию о мероприятии
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.EventApiController.GetEvents(System.String)">
+            <summary>
+            Получение всех мероприятий для текущей даты
+            </summary>
+            <param name="date"></param> Дата
+            <returns></returns> Возвращает все мероприятия
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.OrdersApiController.CancelOrder(System.Int32)">
+            <summary>
+            Отмена брони
+            </summary>
+            <param name="orderid"></param> Номер брони
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.OrdersApiController.GetOrders">
+            <summary>
+            Получение списка броней для данного клиента
+            </summary>
+            <returns></returns> Возвращает спискок броней
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.OrdersApiController.BookSeats(System.Int32,System.Int32[])">
+            <summary>
+            Оформление брони
+            </summary>
+            <param name="eventId"></param> Id мероприятия
+            <param name="sumSeats"></param> Id выбранных мест
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.OrdersApiController.CurrentUserId">
+            <summary>
+            Получение текущего пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.PerformanceApiController.Performances">
+            <summary>
+            Возвращает список всех спектаклей
+            </summary>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.PerformanceApiController.Performance(System.Int32)">
+            <summary>
+            Получить детальную информацию о спектакле
+            </summary>
+            <param name="performanceId"></param> - id спектакля
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.SeatsApiController.GetSeats(System.String,System.Int32)">
+            <summary>
+            Нахождение списка свободных мест для определенного мероприятия
+            </summary>
+            <param name="row"></param> - номер ряда
+            <param name="eventId"></param> - id события
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.SeatsApiController.GetSeatsWithSum(System.String,System.Int32)">
+            <summary>
+            Нахождение списка свободных мест для определенного мероприятия вместе с ценой
+            </summary>
+            <param name="row"></param> - номер ряда
+            <param name="eventId"></param> - id события
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.API.SeatsApiController.GetSumSeats(System.Int32[])">
+            <summary>
+            Расчет суммы денег для выбранных мест
+            </summary>
+            <param name="sumSeats"></param> - id мест
+            <returns></returns>
+        </member>
         <member name="M:Theater_ticket_booking.Controllers.API.UserApiController.Login(System.String,System.String)">
             <summary>
             Получение токена доступа (Авторизация)
@@ -135,8 +209,8 @@
             <summary>
             Оформление брони
             </summary>
-            <param name="eventId"></param>
-            <param name="sumSeats"></param>
+            <param name="eventId"></param> - id мероприятия
+            <param name="sumSeats"></param> - id выбранных мест
         </member>
         <member name="M:Theater_ticket_booking.Controllers.OrderController.CurrentUserId">
             <summary>
@@ -150,6 +224,56 @@
             </summary>
             <param name="value">Исходная строка</param>
             <returns>ХЭШ</returns>
+        </member>
+        <member name="T:Theater_ticket_booking.ModelsView.EventsView">
+            <summary>
+            Мероприятие
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.Name">
+            <summary>
+            Наименования спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.Description">
+            <summary>
+            Описание спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.Actors">
+            <summary>
+            Актеры
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.Producers">
+            <summary>
+            Режиссеры
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.DateTime">
+            <summary>
+            Дата и время
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.PerformanceId">
+            <summary>
+            Номер мероприятия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.EventId">
+            <summary>
+            Номер мероприятия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventsView.Rows">
+            <summary>
+            Список рядов
+            </summary>
         </member>
         <member name="T:Theater_ticket_booking.ModelsView.EventView">
             <summary>
@@ -259,6 +383,61 @@
         <member name="P:Theater_ticket_booking.ModelsView.OrderView.Price">
             <summary>
             Цена
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.ModelsView.PerformancesView">
+            <summary>
+            Спектакль
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformancesView.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformancesView.Name">
+            <summary>
+            Наименования спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformancesView.Description">
+            <summary>
+            Описание спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformancesView.Photo">
+            <summary>
+            Фото спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformanceView.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformanceView.Name">
+            <summary>
+            Наименования спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformanceView.Description">
+            <summary>
+            Описание спектакля
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformanceView.Actors">
+            <summary>
+            Актеры
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformanceView.Producers">
+            <summary>
+            Режиссеры
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.PerformanceView.Photo">
+            <summary>
+            Фото спектакля
             </summary>
         </member>
         <member name="T:Theater_ticket_booking.Models.DB.Actor">

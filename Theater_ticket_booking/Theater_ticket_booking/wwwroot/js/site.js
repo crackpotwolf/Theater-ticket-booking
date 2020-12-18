@@ -105,5 +105,5 @@ function get(dict, keys) {
 //Log out
 function LogOut() {
     $.removeCookie("Authorization");
-    window.location = '/Account/Login';
+    window.location = '/Login';
 }

@@ -90,6 +90,60 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Theater_ticket_booking.Controllers.EventController.GetSeats(System.String,System.Int32)">
+            <summary>
+            Нахождение списка мест для определенного мероприятия
+            </summary>
+            <param name="row"></param> - номер ряда
+            <param name="eventId"></param> - id события
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.EventController.GetSum(System.Int32[])">
+            <summary>
+            Расчет суммы денег для выбранных мест
+            </summary>
+            <param name="sumSeats"></param> - id мест
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.EventController.GetEvent(System.Int32)">
+            <summary>
+            Получение полной информации для определенного мероприятия
+            </summary>
+            <param name="eventId"></param> - id мероприятия
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.EventController.GetEvents(System.String)">
+            <summary>
+            Получение всех мероприятий для текущей даты
+            </summary>
+            <param name="date"></param> - дата
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.OrderController.CancelOrder(System.Int32)">
+            <summary>
+            Отмена брони
+            </summary>
+            <param name="orderid"></param> - номер брони
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.OrderController.GetOrders">
+            <summary>
+            Получение списка броней для данного клиента
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.OrderController.BookSeats(System.Int32,System.Int32[])">
+            <summary>
+            Оформление брони
+            </summary>
+            <param name="eventId"></param>
+            <param name="sumSeats"></param>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.OrderController.CurrentUserId">
+            <summary>
+            Получение текущего пользователя
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Theater_ticket_booking.Helpers.MD5Helper.GetMD5Hash(System.String)">
             <summary>
             ХЭШ строки
@@ -269,7 +323,7 @@
         </member>
         <member name="T:Theater_ticket_booking.Models.DB.Order">
             <summary>
-            Заказ
+            Бронь
             </summary>
         </member>
         <member name="P:Theater_ticket_booking.Models.DB.Order.Id">
@@ -394,7 +448,7 @@
         </member>
         <member name="P:Theater_ticket_booking.Models.DB.Seat.OrderId">
             <summary>
-            Наличие заказа
+            Наличие брони
             </summary>
         </member>
         <member name="T:Theater_ticket_booking.Models.DB.User">
@@ -445,6 +499,11 @@
         <member name="P:Theater_ticket_booking.Models.DB.User.Email">
             <summary>
             Адресс почты
+            </summary>
+        </member>
+        <member name="T:Theater_ticket_booking.Models.InitDB">
+            <summary>
+            Наполнение базы данных
             </summary>
         </member>
         <member name="M:Theater_ticket_booking.Repositories.UsersRepository.IsExists(System.Collections.Generic.List{System.Int32})">

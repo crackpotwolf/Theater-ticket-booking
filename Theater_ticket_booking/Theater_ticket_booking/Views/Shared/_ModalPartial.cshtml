@@ -56,7 +56,6 @@
             if (isAjax && refresh.LoadAction != undefined) {
                 $form.unbind();
                 $form.data("validator", null);
-                //$.validator.unobtrusive.parse(document);
                 $form.bind("submit", function(){
                     setTimeout(function(){
                         refresh.LoadAction(refresh.data);

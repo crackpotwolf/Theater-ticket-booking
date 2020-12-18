@@ -1,14 +1,12 @@
-﻿<div id="orders">
-
-
-</div>
+﻿<div id="orders"></div>
 
 <script>
     $(document).ready(function () {
-        InitOrder();
+        GetOrders();
     });
 
-    function InitOrder() {
+    // получение списка броней
+    function GetOrders() {
         $.ajax({
             url: '@Url.Action("GetOrders", "Order")',
             type: 'GET',
@@ -22,6 +20,7 @@
         });
     }
 
+    // отображение списка броней
     function FillOrders(orders) {
         $("#orders").empty();
 
@@ -41,6 +40,7 @@
         });
     }
 
+    // отмена брони
     function CancelOrder(obj) {
         var orderid = obj.id;
         console.log(orderid);
@@ -56,8 +56,6 @@
             complete: function () {
             }
         });
-
-        
     }
 
 </script>

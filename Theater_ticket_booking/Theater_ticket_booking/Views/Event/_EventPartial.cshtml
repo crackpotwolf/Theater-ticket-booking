@@ -1,10 +1,6 @@
 ﻿@using Theater_ticket_booking.TagHelpers
 
-
-<div class="row row-cols-1 row-cols-md-4" id="Events">
-
-   
-</div>
+<div class="row row-cols-1 row-cols-md-4" id="Events"></div>
 
 <script>
     $(document).ready(function () {
@@ -14,23 +10,38 @@
             "locale": "ru"
         });
 
-        InitEvent();
+        GetEvents();
     });
 
+    // Обновление страницы
     var refreshRoute = {
         LoadAction: LoadList,
         data: undefined
     }
 
-    function getdetails(obj) {
-        ajaxDetail("GetEvent", "Event", ModalBody, obj.id, refreshRoute);
+    // Получение информации о выбранном мероприятии
+    function GetEvent(obj) {
+        $.ajax({
+            url: '@Url.Action("GetEvent", "Event")',
+            type: "GET",
+            data: { eventId: obj.id },
+            success: function (result) {
+                ModalBody(result, refreshRoute);
+            },
+            error: function (error) {
+                console.log("ajax Create error", error);
+            },
+            complete: function () {
+            }
+        });
     };
 
-    function InitEvent() {
+    // Получение информации о мероприятих
+    function GetEvents() {
         var date = document.getElementById("date").value;
 
         $.ajax({
-            url: '@Url.Action("GetShotEvent", "Event")',
+            url: '@Url.Action("GetEvents", "Event")',
             type: 'GET',
             async: false,
             data: { date: date},
@@ -42,6 +53,7 @@
         });
     }
 
+    // Загрузка и отображение мероприятий
     function FillEvent(events) {
         $("#Events").empty();
 
@@ -50,7 +62,7 @@
             var button = "";
             item.event.forEach(function (item, i, arr) {
                 button += '<div class="btn-group mr-2" role="group" aria-label="First group" style="margin:2px">' +
-                    '<button type="submit" onClick = "getdetails(this)" id="' + item.id +'" style="background: #1a1b28; color: white;" class="btn btn-light btn-success br20px p4px10px" href="#" data-toggle="modal" data-target="#ModalPartial"">' + item.time + '</button>' +
+                    '<button type="submit" onClick = "GetEvent(this)" id="' + item.id +'" style="background: #1a1b28; color: white;" class="btn btn-light btn-success br20px p4px10px" href="#" data-toggle="modal" data-target="#ModalPartial"">' + item.time + '</button>' +
                     '</div>';
             });
 

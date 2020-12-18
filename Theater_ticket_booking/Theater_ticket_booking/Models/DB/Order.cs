@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Theater_ticket_booking.Models.DB
 {
     /// <summary>
-    /// Заказ
+    /// Бронь
     /// </summary>
     public class Order
     {

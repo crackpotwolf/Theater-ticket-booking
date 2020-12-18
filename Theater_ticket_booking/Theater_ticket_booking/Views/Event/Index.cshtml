@@ -1,4 +1,5 @@
 ﻿@using Theater_ticket_booking.Extensions
+@{ ViewData["Title"] = "Афиша"; }
 
 <script>
     function LoadList() {
@@ -29,7 +30,7 @@
             </span>
 
             <input class="calendars" type="text" id="date" placeholder="Пожалуйста, выберите дату"
-                   value="@(DateTime.UtcNow.AddHours(4).DateTimeToString("dd.MM.yyyy HH:mm:ss"))" onchange="InitEvent()" data-input>
+                   value="@(DateTime.UtcNow.AddHours(4).DateTimeToString("dd.MM.yyyy HH:mm:ss"))" onchange="GetEvents()" data-input>
         </div>
     </div>
 </div>

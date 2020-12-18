@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
 <head>
+    <title>@ViewData["Title"]</title>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -33,7 +35,7 @@
 
         <li>
             <a href="/Order">
-                <i class="fa fa-shopping-basket" aria-hidden="true"></i> Мои заказы
+                <i class="fa fa-ticket" aria-hidden="true"></i> Мои заказы
             </a>
         </li>
 
@@ -65,21 +67,3 @@
     <partial name="_ModalPartial" />
     @RenderSection("Scripts", required: false)
 </div>
-
-<script>
-    function ajaxDetail(action, controller, loadFunction, data, refresh) {
-        $.ajax({
-            url: "/" + controller + "/" + action,
-            type: "GET",
-            data: { data: data },
-            success: function (result) {
-                loadFunction(result, refresh);
-            },
-            error: function (error) {
-                console.log("ajax Create error", error);
-            },
-            complete: function () {
-            }
-        });
-    }
-</script>

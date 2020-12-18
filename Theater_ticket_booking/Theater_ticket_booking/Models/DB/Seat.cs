@@ -45,7 +45,7 @@ namespace Theater_ticket_booking.Models.DB
         public int Price { get; set; }
 
         /// <summary>
-        /// Наличие заказа
+        /// Наличие брони
         /// </summary>
         [ForeignKey("Order")]
         public int ?OrderId { get; set; }

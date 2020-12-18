@@ -11,7 +11,6 @@ using Theater_ticket_booking.Repositories;
 namespace Theater_ticket_booking.Controllers
 {
     [Authorize]
-    [Route("/Account")]
     public class AccountController : BaseController
     {
         private readonly ILogger<AccountController> _logger;
@@ -20,11 +19,18 @@ namespace Theater_ticket_booking.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Вход в аккаунт
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Login")]
         [AllowAnonymous]
         public IActionResult Login() => View();
 
-
+        /// <summary>
+        /// Регистрация пользователя
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Registration")]
         [AllowAnonymous]
         public IActionResult Registration() => View();
@@ -33,14 +39,22 @@ namespace Theater_ticket_booking.Controllers
         /// Настройки аккаунта пользователя
         /// </summary>
         /// <returns></returns>
-        [HttpGet("")]
-        public async Task<IActionResult> Account()
+        [HttpGet("Settings")]
+        public async Task<IActionResult> Settings() 
         {
-            var user = _userRepository
+            try
+            {
+                var user = _userRepository
                 .GetList()
                 .FirstOrDefault(p => p.Id == CurrentUserId());
 
-            return View(new UserView(user));
+                return View(new UserView(user));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

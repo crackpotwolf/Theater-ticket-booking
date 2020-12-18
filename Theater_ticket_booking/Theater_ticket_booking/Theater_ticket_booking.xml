@@ -4,7 +4,19 @@
         <name>Theater_ticket_booking</name>
     </assembly>
     <members>
-        <member name="M:Theater_ticket_booking.Controllers.AccountController.Account">
+        <member name="M:Theater_ticket_booking.Controllers.AccountController.Login">
+            <summary>
+            Вход в аккаунт
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.AccountController.Registration">
+            <summary>
+            Регистрация пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Theater_ticket_booking.Controllers.AccountController.Settings">
             <summary>
             Настройки аккаунта пользователя
             </summary>
@@ -121,6 +133,11 @@
             </summary>
         </member>
         <member name="P:Theater_ticket_booking.ModelsView.EventView.PerformanceId">
+            <summary>
+            Номер мероприятия
+            </summary>
+        </member>
+        <member name="P:Theater_ticket_booking.ModelsView.EventView.EventId">
             <summary>
             Номер мероприятия
             </summary>
@@ -265,7 +282,7 @@
             Номер клиента
             </summary>
         </member>
-        <member name="P:Theater_ticket_booking.Models.DB.Order.PerformanceId">
+        <member name="P:Theater_ticket_booking.Models.DB.Order.EventId">
             <summary>
             Номер мероприятия
             </summary>

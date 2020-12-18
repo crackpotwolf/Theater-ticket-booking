@@ -79,7 +79,7 @@ namespace Theater_ticket_booking.Controllers
             return orderView;
         }
 
-        public void BookSeats(int performanceId, int[] sumSeats) 
+        public void BookSeats(int eventId, int[] sumSeats) 
         {
             int result = 0;
             foreach (var item in sumSeats)
@@ -88,7 +88,7 @@ namespace Theater_ticket_booking.Controllers
             Order order = new Order
             {
                 UserId = CurrentUserId(),
-                PerformanceId = performanceId,
+                EventId = eventId,
                 Price = result
             };
 

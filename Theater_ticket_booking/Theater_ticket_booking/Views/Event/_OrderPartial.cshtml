@@ -91,11 +91,12 @@
 
     function LoadSeat() {
         var row = document.getElementById("Row").value;
+        var eventId = @Html.DisplayFor(model => model.EventId);
 
         $.ajax({
             url: '@Url.Action("GetSeats", "Event")',
             type: 'GET',
-            data: { row: row},
+            data: { row: row, eventId: eventId},
             success: function (result) {
                 ChangeSeats(result);
             },
@@ -131,13 +132,13 @@
 
     function BookSeats() {
         var sumSeats = $('#Seats').val();
-        var performanceId = @Html.DisplayFor(model => model.PerformanceId);
+        var eventId = @Html.DisplayFor(model => model.EventId);
 
         $.ajax({
             url: '@Url.Action("BookSeats", "Order")',
             type: 'GET',
             traditional: true,
-            data: { performanceId: performanceId, sumSeats: sumSeats},
+            data: { eventId: eventId, sumSeats: sumSeats},
             success: function (result) {
             },
             complete: function () {

@@ -49,5 +49,11 @@ namespace Theater_ticket_booking.ModelsView
         /// </summary>
         [ForeignKey("Performance")]
         public int PerformanceId { get; set; }
+
+        /// <summary>
+        /// Номер мероприятия
+        /// </summary>
+        [ForeignKey("Event")]
+        public int EventId { get; set; }
     }
 }

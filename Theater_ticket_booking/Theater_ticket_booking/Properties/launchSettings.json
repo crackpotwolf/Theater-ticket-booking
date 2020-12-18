@@ -18,7 +18,7 @@
     "Theater_ticket_booking": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Account",
+      "launchUrl": "Event",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -11,6 +11,7 @@ using Theater_ticket_booking.ModelsView;
 
 namespace Theater_ticket_booking.Controllers
 {
+
     public class EventController : Controller
     {
         TheaterContext _db;
@@ -31,9 +32,9 @@ namespace Theater_ticket_booking.Controllers
         }
 
 
-        public Dictionary<int, string> GetSeats(string row)
+        public Dictionary<int, string> GetSeats(string row, int eventId)
         {
-            var seats = _db.Seats.Where(p => p.Row == row && p.Status == true);
+            var seats = _db.Seats.Where(p => p.Row == row && p.Status == true && p.EventId == eventId).ToList();
 
             Dictionary<int, string> result = new Dictionary<int, string> ();
             foreach (var item in seats)
@@ -80,6 +81,7 @@ namespace Theater_ticket_booking.Controllers
 
                 event_view = new EventView
                 {
+                    EventId = events.Id,
                     Name = performance.Name,
                     Description = performance.Description,
                     Actors = actors,

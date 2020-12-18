@@ -27,8 +27,8 @@ namespace Theater_ticket_booking.Models.DB
         /// <summary>
         /// Номер мероприятия
         /// </summary>
-        [ForeignKey("Performance")]
-        public int PerformanceId { get; set; }
+        [ForeignKey("Event")]
+        public int EventId { get; set; }
         
         /// <summary>
         /// Цена

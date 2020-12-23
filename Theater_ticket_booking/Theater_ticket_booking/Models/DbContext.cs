@@ -19,6 +19,8 @@ namespace Theater_ticket_booking.Models
         public virtual DbSet<Event> Events { get; set; }  
         public virtual DbSet<Order> Orders { get; set; }
 
+        public TheaterContext() { } 
+
         public TheaterContext(DbContextOptions<TheaterContext> options)
             : base(options)
         {

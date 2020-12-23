@@ -10,7 +10,7 @@ namespace Theater_ticket_booking.Models.DB
     /// <summary>
     /// Мероприятие
     /// </summary>
-    public class Event 
+    public class Event : BaseEntity
     {
         /// <summary>
         /// Идентификатор

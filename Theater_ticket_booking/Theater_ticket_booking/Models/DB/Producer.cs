@@ -10,7 +10,7 @@ namespace Theater_ticket_booking.Models.DB
     /// <summary>
     /// Режиссер
     /// </summary>
-    public class Producer
+    public class Producer : BaseEntity
     {
         /// <summary>
         /// Идентификатор

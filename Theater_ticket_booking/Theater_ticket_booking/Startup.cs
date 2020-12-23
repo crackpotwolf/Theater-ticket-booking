@@ -165,7 +165,10 @@ namespace Theater_ticket_booking
         private void AddRepositories(IServiceCollection services)
         {
             services
-                .AddTransient(typeof(UsersRepository));
+                .AddTransient(typeof(UsersRepository))
+                .AddTransient(typeof(ActorRepository))
+                .AddTransient(typeof(EventRepository))
+                .AddTransient(typeof(ProducerRepository));
         }
     }
 }

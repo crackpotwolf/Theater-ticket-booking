@@ -10,7 +10,7 @@ namespace Theater_ticket_booking.Models.DB
     /// <summary>
     /// Актер
     /// </summary>
-    public class Actor
+    public class Actor : BaseEntity
     {
         /// <summary>
         /// Идентификатор

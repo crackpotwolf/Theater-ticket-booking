@@ -18,30 +18,60 @@ namespace Theater_ticket_booking.Test.Controllers
 {
     public class OrderControllerTest
     {
-        Mock<TheaterContext> dbContext = new Mock<TheaterContext>();
+
+        Mock<TheaterContext> dbContext;
+
+        //Repos
+        Mock<UsersRepository> usersRepository;
+        Mock<EventRepository> eventRepository;
+        Mock<ProducerRepository> producerRepository;
+        Mock<ActorRepository> actorRepository;
 
         //OrderController
-        OrderController orderController;
+        EventController eventController;
 
         public OrderControllerTest()
         {
             dbContext = new Mock<TheaterContext>();
-            InitDB.Initialize(dbContext.Object);
+
+            InitDB.LoadMockDb(dbContext);
+
+            //Event
+            eventRepository = new Mock<EventRepository>(dbContext.Object);
+            eventRepository.Setup(repo => repo.GetList()).Returns(InitDB.LoadEvent().AsQueryable().BuildMock().Object);
+            eventRepository.Setup(repo => repo.GetUniqueRows(1)).Returns(Task.FromResult(new List<string>(new string[] { "1", "2" })));
+
+            eventRepository.Setup(repo => repo.Add(It.IsAny<Event>())).Returns(Task.FromResult(true));
+            eventRepository.Setup(repo => repo.Update(It.IsAny<Event>())).Returns(Task.FromResult(true));
+            eventRepository.Setup(repo => repo.Remove(It.IsAny<Event>())).Returns(Task.FromResult(true));
+
+            //Producer
+            producerRepository = new Mock<ProducerRepository>(dbContext.Object);
+            producerRepository.Setup(repo => repo.GetList()).Returns(new List<Producer>().AsQueryable().BuildMock().Object);
+            producerRepository.Setup(repo => repo.Add(It.IsAny<Producer>())).Returns(Task.FromResult(true));
+            producerRepository.Setup(repo => repo.Update(It.IsAny<Producer>())).Returns(Task.FromResult(true));
+            producerRepository.Setup(repo => repo.Remove(It.IsAny<Producer>())).Returns(Task.FromResult(true));
+
+            //Actors
+            actorRepository = new Mock<ActorRepository>(dbContext.Object);
+            actorRepository.Setup(repo => repo.GetList()).Returns(new List<Actor>().AsQueryable().BuildMock().Object);
+            actorRepository.Setup(repo => repo.Add(It.IsAny<Actor>())).Returns(Task.FromResult(true));
+            actorRepository.Setup(repo => repo.Update(It.IsAny<Actor>())).Returns(Task.FromResult(true));
+            actorRepository.Setup(repo => repo.Remove(It.IsAny<Actor>())).Returns(Task.FromResult(true));
+
+            //Users
+            usersRepository = new Mock<UsersRepository>(dbContext.Object);
+            var users = new List<User>() {
+                new User() { Id = -1 },
+                new User() { Id = 1 },
+                new User() { Id = 2 },
+                new User() { Id = 3 },
+            };
+            usersRepository.Setup(repo => repo.GetList()).Returns(users.AsQueryable().BuildMock().Object);
 
             //Controller
-            orderController = new OrderController(dbContext.Object);
+            eventController = new EventController(eventRepository.Object, usersRepository.Object,
+                producerRepository.Object, actorRepository.Object);
         }
-
-        [Fact]
-        public void GetOrders() 
-        {
-            // Act
-            var result = orderController.GetOrders();
-
-            // Assert
-            Assert.IsType<List<OrderView>>(result);
-        }
-
-
     }
 }

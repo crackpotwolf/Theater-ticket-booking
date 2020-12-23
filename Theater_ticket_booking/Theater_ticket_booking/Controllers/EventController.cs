@@ -9,17 +9,24 @@ using Microsoft.EntityFrameworkCore;
 using Theater_ticket_booking.Models;
 using Theater_ticket_booking.Models.DB;
 using Theater_ticket_booking.ModelsView;
+using Theater_ticket_booking.Repositories;
 
 namespace Theater_ticket_booking.Controllers
 {
     [Authorize]
-    public class EventController : Controller
+    public class EventController : BaseController
     {
-        TheaterContext _db;
+        private readonly EventRepository _eventRepository;
+        private readonly ProducerRepository _producerRepository;
+        private readonly ActorRepository _actorRepository;
 
-        public EventController(TheaterContext context)
+        public EventController(EventRepository eventRepository,
+            UsersRepository userRepository, ProducerRepository producerRepository,
+            ActorRepository actorRepository) : base(userRepository)
         {
-            _db = context;
+            _eventRepository = eventRepository;
+            _producerRepository = producerRepository;
+            _actorRepository = actorRepository;
         }
 
         public IActionResult Index()
@@ -38,9 +45,9 @@ namespace Theater_ticket_booking.Controllers
         /// <param name="row"></param> - номер ряда
         /// <param name="eventId"></param> - id события
         /// <returns></returns>
-        public Dictionary<int, string> GetSeats(string row, int eventId)
+        public async Task<Dictionary<int, string>> GetSeats(string row, int eventId)
         {
-            var seats = _db.Seats.Where(p => p.Row == row && p.Status == true && p.EventId == eventId).ToList();
+            var seats = await _eventRepository.GetSeatsByRow(row, eventId);
 
             Dictionary<int, string> result = new Dictionary<int, string> ();
             foreach (var item in seats)
@@ -54,11 +61,11 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="sumSeats"></param> - id мест
         /// <returns></returns>
-        public string GetSum(int[] sumSeats)
+        public async Task<string> GetSum(int[] sumSeats)
         {
             int result = 0;
             foreach (var item in sumSeats)
-                result += _db.Seats.Where(p => p.Id == item).Select(p => p.Price).FirstOrDefault();
+                result += await _eventRepository.GetSeat(item);
 
             return result.ToString();
         }
@@ -68,35 +75,23 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="eventId"></param> - id мероприятия
         /// <returns></returns>
-        public virtual IActionResult GetEvent(int eventId)
+        public async Task<IActionResult> GetEvent(int eventId)
         {
             var event_view = new EventView();
-            ViewBag.Seats = new List<string>();
-
-            ViewBag.Seats = _db.Seats.Where(p => p.EventId == eventId).Select(m => m.Row).Distinct().ToList();
+            ViewBag.Rows = await _eventRepository.GetUniqueRows(eventId);
 
             try
             {
                 // получение мероприятия
-                var events = _db.Events.Where(p => p.Id == eventId).FirstOrDefault();
+                var events = _eventRepository.GetList().Where(p => p.Id == eventId).FirstOrDefault();
                 // получение спектакля
-                Performance performance = _db.Performances.Where(p => p.Id == events.PerformanceId).FirstOrDefault();
+                Performance performance = await _eventRepository.GetPerformance(events.PerformanceId);
 
                 // получения списка актеров
-                List<ActorPerformance> actorPerformances = _db.ActorPerformances.Where(p => p.PerformanceId == performance.Id).ToList();
-                string actors = "";
-
-                foreach (var it in actorPerformances)
-                    actors += _db.Actors.Where(p => p.Id == it.ActorId).FirstOrDefault().Name + ", ";
-                actors = actors.Substring(0, actors.Length - 2);
+                string actors = await _actorRepository.GetListActors(performance.Id);
 
                 // получения списка режиссеров
-                List<ProducerPerformance> producerPerformance = _db.ProducerPerformances.Where(p => p.PerformanceId == performance.Id).ToList();
-                string producers = "";
-
-                foreach (var it in producerPerformance)
-                    producers += _db.Producers.Where(p => p.Id == it.PerformanceId).FirstOrDefault().Name + ", ";
-                producers = producers.Substring(0, producers.Length - 2);
+                string producers = await _producerRepository.GetListProducers(performance.Id);
 
                 event_view = new EventView
                 {
@@ -122,14 +117,14 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="date"></param> - дата
         /// <returns></returns>
-        public List<ShotEventView> GetEvents(string date) 
+        public async Task<List<ShotEventView>> GetEvents(string date) 
         {
             var event_view = new List<ShotEventView>();
 
             try
             {
                 // получение мероприятий для данной даты
-                var events = _db.Events.Where(p => p.Date == date).ToList();
+                var events = await _eventRepository.GetList().Where(p => p.Date == date).ToListAsync();
 
                 // для каждого мериприятия
                 foreach (var item in events)
@@ -138,7 +133,7 @@ namespace Theater_ticket_booking.Controllers
                     if (event_view.Where(p => p.PerformanceId == item.PerformanceId).FirstOrDefault() == null) 
                     {
                         // получение спектакля
-                        Performance performance = _db.Performances.Where(p => p.Id == item.PerformanceId).FirstOrDefault();
+                        Performance performance = await _eventRepository.GetPerformance(item.PerformanceId);
 
                         event_view.Add(new ShotEventView()
                         {

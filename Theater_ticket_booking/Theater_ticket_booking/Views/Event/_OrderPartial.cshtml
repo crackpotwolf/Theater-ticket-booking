@@ -46,7 +46,7 @@
             </dt>
             <div class="input-group col-12">
                 <select id="Row" onchange=LoadSeat() class="selectpicker form-control select_row">
-                    @foreach (var type in @ViewBag.Seats)
+                    @foreach (var type in @ViewBag.Rows)
                     {
                         <option>@type</option>
                     }
@@ -60,10 +60,6 @@
             </dt>
             <div class="input-group col-12">
                 <select id="Seats" multiple onchange=LoadSum() class="selectpicker multiple form-control select_row" required>
-                    @foreach (var type in @ViewBag.Seats)
-                    {
-                        <option>@type</option>
-                    }
                 </select>
             </div>
         </div>

@@ -28,6 +28,8 @@ namespace Theater_ticket_booking.Test.Controllers
         Mock<EventRepository> eventRepository;
         Mock<ProducerRepository> producerRepository;
         Mock<ActorRepository> actorRepository;
+        Mock<SeatRepository> seatRepository;
+        Mock<PerformanceRepository> performanceRepository; 
 
         //OrderController
         EventController eventController; 
@@ -41,11 +43,15 @@ namespace Theater_ticket_booking.Test.Controllers
             //Event
             eventRepository = new Mock<EventRepository>(dbContext.Object);
             eventRepository.Setup(repo => repo.GetList()).Returns(InitDB.LoadEvent().AsQueryable().BuildMock().Object);
-            eventRepository.Setup(repo => repo.GetUniqueRows(1)).Returns(Task.FromResult(new List<string>(new string[] { "1", "2" })));
-
             eventRepository.Setup(repo => repo.Add(It.IsAny<Event>())).Returns(Task.FromResult(true));
             eventRepository.Setup(repo => repo.Update(It.IsAny<Event>())).Returns(Task.FromResult(true));
             eventRepository.Setup(repo => repo.Remove(It.IsAny<Event>())).Returns(Task.FromResult(true));
+
+            //Performance
+            performanceRepository = new Mock<PerformanceRepository>(dbContext.Object);
+            performanceRepository.Setup(repo => repo.Add(It.IsAny<Performance>())).Returns(Task.FromResult(true));
+            performanceRepository.Setup(repo => repo.Update(It.IsAny<Performance>())).Returns(Task.FromResult(true));
+            performanceRepository.Setup(repo => repo.Remove(It.IsAny<Performance>())).Returns(Task.FromResult(true));
 
             //Producer
             producerRepository = new Mock<ProducerRepository>(dbContext.Object);
@@ -71,9 +77,17 @@ namespace Theater_ticket_booking.Test.Controllers
             };
             usersRepository.Setup(repo => repo.GetList()).Returns(users.AsQueryable().BuildMock().Object);
 
+            //Seat
+            seatRepository = new Mock<SeatRepository>(dbContext.Object);
+            seatRepository.Setup(repo => repo.GetList()).Returns(new List<Seat>().AsQueryable().BuildMock().Object);
+            seatRepository.Setup(repo => repo.GetUniqueRows(1)).Returns(Task.FromResult(new List<string>(new string[] { "1", "2" })));
+            seatRepository.Setup(repo => repo.Add(It.IsAny<Seat>())).Returns(Task.FromResult(true));
+            seatRepository.Setup(repo => repo.Update(It.IsAny<Seat>())).Returns(Task.FromResult(true));
+            seatRepository.Setup(repo => repo.Remove(It.IsAny<Seat>())).Returns(Task.FromResult(true));
+
             //Controller
             eventController = new EventController(eventRepository.Object, usersRepository.Object, 
-                producerRepository.Object, actorRepository.Object);
+                producerRepository.Object, actorRepository.Object, seatRepository.Object, performanceRepository.Object);
         }
 
         [Fact]
@@ -190,7 +204,7 @@ namespace Theater_ticket_booking.Test.Controllers
                 InitDB.NewSeat(5, 1, "1", "5", true, 100)
             };
 
-            eventRepository.Setup(repo => repo.GetSeatsByRow("1", 1)).Returns(Task.FromResult(seats));
+            seatRepository.Setup(repo => repo.GetSeatsByRow("1", 1)).Returns(Task.FromResult(seats));
 
             Dictionary<int, string> searsSum = new Dictionary<int, string> 
             {
@@ -217,8 +231,8 @@ namespace Theater_ticket_booking.Test.Controllers
 
             string sum = "250";
 
-            eventRepository.Setup(repo => repo.GetSeat(1)).Returns(Task.FromResult(100));
-            eventRepository.Setup(repo => repo.GetSeat(2)).Returns(Task.FromResult(150));
+            seatRepository.Setup(repo => repo.GetSeat(1)).Returns(Task.FromResult(100));
+            seatRepository.Setup(repo => repo.GetSeat(2)).Returns(Task.FromResult(150));
 
             // Act
             var result = eventController.GetSum(sumSeats).Result;
@@ -226,7 +240,5 @@ namespace Theater_ticket_booking.Test.Controllers
             // Assert
             Assert.Equal(JsonConvert.SerializeObject(sum), JsonConvert.SerializeObject(result));
         }
-
-        
     }
 }

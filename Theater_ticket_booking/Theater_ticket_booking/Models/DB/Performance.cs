@@ -10,7 +10,7 @@ namespace Theater_ticket_booking.Models.DB
     /// <summary>
     /// Спектакль
     /// </summary>
-    public class Performance
+    public class Performance : BaseEntity
     {
         /// <summary>
         /// Идентификатор

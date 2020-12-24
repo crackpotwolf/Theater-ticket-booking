@@ -19,14 +19,19 @@ namespace Theater_ticket_booking.Controllers
         private readonly EventRepository _eventRepository;
         private readonly ProducerRepository _producerRepository;
         private readonly ActorRepository _actorRepository;
+        private readonly SeatRepository _seatRepository;
+        private readonly PerformanceRepository _performanceRepository;
 
         public EventController(EventRepository eventRepository,
             UsersRepository userRepository, ProducerRepository producerRepository,
-            ActorRepository actorRepository) : base(userRepository)
+            ActorRepository actorRepository, SeatRepository seatRepository,
+            PerformanceRepository performanceRepository) : base(userRepository)
         {
             _eventRepository = eventRepository;
             _producerRepository = producerRepository;
             _actorRepository = actorRepository;
+            _seatRepository = seatRepository;
+            _performanceRepository = performanceRepository;
         }
 
         public IActionResult Index()
@@ -47,7 +52,7 @@ namespace Theater_ticket_booking.Controllers
         /// <returns></returns>
         public async Task<Dictionary<int, string>> GetSeats(string row, int eventId)
         {
-            var seats = await _eventRepository.GetSeatsByRow(row, eventId);
+            var seats = await _seatRepository.GetSeatsByRow(row, eventId);
 
             Dictionary<int, string> result = new Dictionary<int, string> ();
             foreach (var item in seats)
@@ -65,7 +70,7 @@ namespace Theater_ticket_booking.Controllers
         {
             int result = 0;
             foreach (var item in sumSeats)
-                result += await _eventRepository.GetSeat(item);
+                result += await _seatRepository.GetSeat(item);
 
             return result.ToString();
         }
@@ -78,14 +83,14 @@ namespace Theater_ticket_booking.Controllers
         public async Task<IActionResult> GetEvent(int eventId)
         {
             var event_view = new EventView();
-            ViewBag.Rows = await _eventRepository.GetUniqueRows(eventId);
+            ViewBag.Rows = await _seatRepository.GetUniqueRows(eventId);
 
             try
             {
                 // получение мероприятия
                 var events = _eventRepository.GetList().Where(p => p.Id == eventId).FirstOrDefault();
                 // получение спектакля
-                Performance performance = await _eventRepository.GetPerformance(events.PerformanceId);
+                Performance performance = await _performanceRepository.GetPerformance(events.PerformanceId);
 
                 // получения списка актеров
                 string actors = await _actorRepository.GetListActors(performance.Id);
@@ -133,7 +138,7 @@ namespace Theater_ticket_booking.Controllers
                     if (event_view.Where(p => p.PerformanceId == item.PerformanceId).FirstOrDefault() == null) 
                     {
                         // получение спектакля
-                        Performance performance = await _eventRepository.GetPerformance(item.PerformanceId);
+                        Performance performance = await _performanceRepository.GetPerformance(item.PerformanceId);
 
                         event_view.Add(new ShotEventView()
                         {

@@ -168,7 +168,10 @@ namespace Theater_ticket_booking
                 .AddTransient(typeof(UsersRepository))
                 .AddTransient(typeof(ActorRepository))
                 .AddTransient(typeof(EventRepository))
-                .AddTransient(typeof(ProducerRepository));
+                .AddTransient(typeof(ProducerRepository))
+                .AddTransient(typeof(SeatRepository))
+                .AddTransient(typeof(OrderRepository))
+                .AddTransient(typeof(PerformanceRepository));
         }
     }
 }

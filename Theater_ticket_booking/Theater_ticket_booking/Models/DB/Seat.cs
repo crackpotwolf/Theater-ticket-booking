@@ -10,7 +10,7 @@ namespace Theater_ticket_booking.Models.DB
     /// <summary>
     /// Место в зале на спектакле
     /// </summary>
-    public class Seat
+    public class Seat : BaseEntity
     {
         /// <summary>
         /// Идентификатор

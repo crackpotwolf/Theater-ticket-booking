@@ -10,7 +10,7 @@ namespace Theater_ticket_booking.Models.DB
     /// <summary>
     /// Бронь
     /// </summary>
-    public class Order
+    public class Order : BaseEntity
     {
         /// <summary>
         /// Идентификатор

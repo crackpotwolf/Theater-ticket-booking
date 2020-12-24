@@ -9,17 +9,27 @@ using Microsoft.EntityFrameworkCore;
 using Theater_ticket_booking.Models;
 using Theater_ticket_booking.Models.DB;
 using Theater_ticket_booking.ModelsView;
+using Theater_ticket_booking.Repositories;
 
 namespace Theater_ticket_booking.Controllers
 {
     [Authorize]
-    public class OrderController : Controller 
+    public class OrderController : BaseController
     {
-        TheaterContext _db;
+        private readonly OrderRepository _orderRepository;
+        private readonly EventRepository _eventRepository;
+        private readonly SeatRepository _seatRepository;
+        private readonly PerformanceRepository _performanceRepository;
 
-        public OrderController(TheaterContext context)
+        public OrderController(EventRepository eventRepository,
+            UsersRepository userRepository, OrderRepository orderRepository,
+            SeatRepository seatRepository,
+            PerformanceRepository performanceRepository) : base(userRepository)
         {
-            _db = context;
+            _eventRepository = eventRepository;
+            _orderRepository = orderRepository;
+            _seatRepository = seatRepository;
+            _performanceRepository = performanceRepository;
         }
 
         public IActionResult Index()
@@ -31,12 +41,12 @@ namespace Theater_ticket_booking.Controllers
         /// Отмена брони
         /// </summary>
         /// <param name="orderid"></param> - номер брони
-        public void CancelOrder(int orderid)
+        public async Task CancelOrder(int orderid)
         {
             // получение заказа
-            var orders = _db.Orders.Where(p => p.Id == orderid).FirstOrDefault();
+            var orders = await _orderRepository.Find(orderid);
             // получение мест данного заказа
-            var seats = _db.Seats.Where(p => p.OrderId == orders.Id).ToList();
+            var seats = await _seatRepository.GetList().Where(p => p.OrderId == orders.Id).ToListAsync();
 
             // для каждого места отменить бронь
             foreach (var item in seats)
@@ -45,27 +55,25 @@ namespace Theater_ticket_booking.Controllers
                 seat.Status = true;
                 seat.OrderId = null;
 
-                _db.Update(seat);
+                await _seatRepository.Update(seat);
             }
 
             // удалить бронь
-            _db.Remove(orders);
-
-            _db.SaveChanges();
+            await _orderRepository.Remove(orders);
         }
 
         /// <summary>
         /// Получение списка броней для данного клиента
         /// </summary>
         /// <returns></returns>
-        public List<OrderView> GetOrders() 
+        public async Task<List<OrderView>> GetOrders() 
         {
             List<OrderView> orderView = new List<OrderView>();
 
             // получение текущего пользователя
             var UserId = CurrentUserId();
             //Получения списка броней
-            var orders = _db.Orders.Where(p => p.UserId == UserId).ToList();
+            var orders = await _orderRepository.GetList().Where(p => p.UserId == UserId).ToListAsync();
 
             // для каждой брони
             foreach (var item in orders)
@@ -73,7 +81,7 @@ namespace Theater_ticket_booking.Controllers
                 OrderView temp = new OrderView();
 
                 // получить список мест
-                var seats = _db.Seats.Where(p => p.OrderId == item.Id).ToList();
+                var seats = await _seatRepository.GetList().Where(p => p.OrderId == item.Id).ToListAsync();
 
                 string seat = "";
                 foreach (var it in seats)
@@ -81,9 +89,9 @@ namespace Theater_ticket_booking.Controllers
                 seat = seat.Substring(0, seat.Length - 2);
 
                 // получение мероприятия
-                var events = _db.Events.Where(p => p.Id == seats.FirstOrDefault().EventId).FirstOrDefault();
+                var events = await _eventRepository.Find(seats.FirstOrDefault().EventId);
                 // получение спектакля
-                var perfomance = _db.Performances.Where(p => p.Id == events.PerformanceId).FirstOrDefault();
+                var perfomance = await _performanceRepository.Find(events.PerformanceId);
 
                 temp.Id = item.Id;
                 temp.Name = perfomance.Name;
@@ -103,12 +111,12 @@ namespace Theater_ticket_booking.Controllers
         /// </summary>
         /// <param name="eventId"></param> - id мероприятия
         /// <param name="sumSeats"></param> - id выбранных мест
-        public void BookSeats(int eventId, int[] sumSeats) 
+        public async Task BookSeats(int eventId, int[] sumSeats) 
         {
             // расчет общей стоимости брони
             int result = 0;
             foreach (var item in sumSeats)
-                result += _db.Seats.Where(p => p.Id == item).Select(p => p.Price).FirstOrDefault();
+                result += _seatRepository.GetList().Where(p => p.Id == item).FirstOrDefault().Price;
 
             // добавление брони
             Order order = new Order
@@ -118,22 +126,19 @@ namespace Theater_ticket_booking.Controllers
                 Price = result
             };
 
-            _db.Add(order);
-            _db.SaveChanges();
+            await _orderRepository.Add(order);
 
             // смена статуса мест для текущей брони
-            var lastorder = _db.Orders.ToList().LastOrDefault();
+            var lastorder = _orderRepository.GetList().ToListAsync().Result.LastOrDefault();
 
             foreach (var item in sumSeats) {
 
-                Seat seats = _db.Seats.Where(p => p.Id == item).FirstOrDefault();
+                Seat seats = await _seatRepository.FirstOrDefault(p => p.Id == item);
                 seats.Status = false;
                 seats.OrderId = lastorder.Id;
 
-                _db.Update(order);
+                await _seatRepository.Update(seats);
             }
-
-            _db.SaveChanges();
         }
 
         /// <summary>

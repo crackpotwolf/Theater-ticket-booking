@@ -4,47 +4,55 @@
 @{
     ViewData["Title"] = "Аккаунт";
 }
-<div class="card shadow">
 
-    <div class="card-header card-header py-3 d-flex flex-row align-items-center">
-        <span>Настройки</span>
+<div class="row">
+
+    <div class="col-3"> </div>
+
+    <div class="col-6">
+        <div class="card shadow">
+
+            <div class="card-header">
+                <span>Настройки</span>
+            </div>
+
+            <form class="card-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group d-flex ">
+                    <label class="control-label col-4 text-right" style="line-height: 38px;">Имя</label>
+                    <input asp-for="FirstName" class="form-control col-5" value="@Model.FirstName" />
+                </div>
+
+                <div class="form-group d-flex ">
+                    <label class="control-label col-4 text-right" style="line-height: 38px;">Фамилия</label>
+                    <input asp-for="LastName" class="form-control col-5" value="@Model.LastName" />
+                </div>
+
+                <div class="form-group d-flex ">
+                    <label class="control-label col-4 text-right" style="line-height: 38px;">Ник</label>
+                    <input asp-for="Login" class="form-control col-5" value="@Model.Login" />
+                </div>
+
+                <div class="form-group d-flex ">
+                    <label class="control-label col-4 text-right" style="line-height: 38px;">Email</label>
+                    <input asp-for="Email" class="form-control col-5" value="@Model.Email" readonly />
+                </div>
+
+                <div class="form-group d-flex ">
+                    <label class="control-label col-4 text-right" style="line-height: 38px;">Номер телефона</label>
+                    <input asp-for="Phone" class="form-control col-5" value="@Model.Phone" />
+                </div>
+
+                <div class="form-group mb-1 d-flex justify-content-center">
+                    <input class="btn btn-secondary" value="Сохранить изменения" />
+                </div>
+
+                <div class="text-center">
+                    <label class="text-danger" id="error"></label>
+                </div>
+
+            </form>
+        </div>
     </div>
-
-    <form class="card-body container-fullcalendar">
-
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group d-flex ">
-            <label class="control-label col-4 text-right" style="line-height: 38px;">Имя</label>
-            <input asp-for="FirstName" class="form-control col-5" value="@Model.FirstName" />
-        </div>
-
-        <div class="form-group d-flex ">
-            <label class="control-label col-4 text-right" style="line-height: 38px;">Фамилия</label>
-            <input asp-for="LastName" class="form-control col-5" value="@Model.LastName" />
-        </div>
-
-        <div class="form-group d-flex ">
-            <label class="control-label col-4 text-right" style="line-height: 38px;">Ник</label>
-            <input asp-for="Login" class="form-control col-5" value="@Model.Login" />
-        </div>
-
-        <div class="form-group d-flex ">
-            <label class="control-label col-4 text-right" style="line-height: 38px;">Email</label>
-            <input asp-for="Email" class="form-control col-5" value="@Model.Email" readonly />
-        </div>
-
-        <div class="form-group d-flex ">
-            <label class="control-label col-4 text-right" style="line-height: 38px;">Номер телефона</label>
-            <input asp-for="Phone" class="form-control col-5" value="@Model.Phone" />
-        </div>
-
-        <div class="form-group mb-1 d-flex justify-content-center">
-            <input class="btn btn-sm btn-primary disabled" value="Сохранить изменения"/>
-        </div>
-
-        <div class="text-center">
-            <label class="text-danger" id="error"></label>
-        </div>
-
-    </form>
 </div>

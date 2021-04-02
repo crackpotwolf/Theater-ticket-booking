@@ -8,6 +8,10 @@
     <DocumentationFile>D:\Sourse\GitHub\Theater_ticket_booking\Theater_ticket_booking\Theater_ticket_booking\Theater_ticket_booking.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Sourse\GitHub\Theater_ticket_booking\Theater_ticket_booking\Theater_ticket_booking\Theater_ticket_booking.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="EO.WebBrowser" Version="20.2.90" />
     <PackageReference Include="IdentityServer4" Version="4.1.1" />

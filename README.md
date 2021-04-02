@@ -1,1 +1,2 @@
-# Theater_ticket_booking
+# Бронирование билетов в театр, веб-сайт
+Данный сервис доступен по адресу https://theater-ticket-booking.herokuapp.com/Login. К сожаленью Heroku через определённое время останавливает работу сервиса, а так как данные хранятся в SQLite то они не сохраняются после перезапуска сервиса. Так же у сервиса есть API доступное по ссылкеhttps://theater-ticket-booking.herokuapp.com/swagger/index.html.
